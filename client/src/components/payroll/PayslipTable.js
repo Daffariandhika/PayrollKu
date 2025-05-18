@@ -147,23 +147,56 @@ class PayslipTable extends PureComponent {
                         </tr>
                         <tr>
                           <td>
+                            <strong>BPJS TK JHT</strong>
+                          </td>
+                          <td className="text-danger">
+                            <strong>
+                              <span>Rp</span>{' '}
+                              {formatMoney(payroll.BPJS.JHT)}
+                            </strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <strong>BPJS TK JP</strong>
+                          </td>
+                          <td className="text-danger">
+                            <strong>
+                              <span>Rp</span>{' '}
+                              {formatMoney(payroll.BPJS.JP)}
+                            </strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <strong>BPJS Kesehatan</strong>
+                          </td>
+                          <td className="text-danger">
+                            <strong>
+                              <span>Rp</span>{' '}
+                              {formatMoney(payroll.BPJS.KS)}
+                            </strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <strong>BiayaJabatan</strong>
+                          </td>
+                          <td className="text-danger">
+                            <strong>
+                              <span>Rp</span>{' '}
+                              {formatMoney(payroll.biayaJabatan)}
+                            </strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
                             <strong>Tax</strong>
                           </td>
                           <td className="text-danger">
                             <strong>
                               <span>Rp</span>{' '}
                               {formatMoney(payroll.tax)}
-                            </strong>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <strong>Pension</strong>
-                          </td>
-                          <td className="text-danger">
-                            <strong>
-                              <span>Rp</span>{' '}
-                              {formatMoney(payroll.pension)}
                             </strong>
                           </td>
                         </tr>

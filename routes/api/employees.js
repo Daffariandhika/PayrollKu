@@ -43,6 +43,8 @@ router.post("/", protect, (req, res) => {
     const newEmployee = new Employee({
       tag,
       name: req.body.name,
+      gender: req.body.gender,
+      status: req.body.status,
       email: req.body.email,
       designation: req.body.designation,
       department: req.body.department,
@@ -50,8 +52,9 @@ router.post("/", protect, (req, res) => {
       stateResidence: req.body.stateResidence,
       bankName: req.body.bankName,
       accountNumber: req.body.accountNumber,
-      pfaName: req.body.pfaName,
-      pensionAccountNumber: req.body.pensionAccountNumber,
+      bpjsKetenagakerjaanNumber: req.body.bpjsKetenagakerjaanNumber,
+      bpjsKesehatanNumber: req.body.bpjsKesehatanNumber,
+      npwp: req.body.npwp,
       levelName
     });
   
@@ -79,6 +82,8 @@ router.put("/:id", protect, (req, res) => {
 
     employeeFields = {
       name: req.body.name,
+      gender: req.body.gender,
+      status: req.body.status,
       email: req.body.email,
       designation: req.body.designation,
       department: req.body.department,
@@ -86,8 +91,9 @@ router.put("/:id", protect, (req, res) => {
       stateResidence: req.body.stateResidence,
       bankName: req.body.bankName,
       accountNumber: req.body.accountNumber,
-      pfaName: req.body.pfaName,
-      pensionAccountNumber: req.body.pensionAccountNumber,
+      bpjsKetenagakerjaanNumber: req.body.bpjsKetenagakerjaanNumber,
+      bpjsKesehatanNumber: req.body.bpjsKesehatanNumber,
+      npwp: req.body.npwp,
       levelName
     };
   
@@ -323,15 +329,18 @@ function importExcelData2MongoDB(filePath){
           columnToKey: {
               A: 'tag',
               B: 'name',
-              C: 'email',
-              D: 'designation',
-              E: 'department',
-              F: 'stateResidence',
-              G: 'bankName',
-              H: 'accountNumber',
-              I: 'pfaName',
-              J: 'pensionAccountNumber',
-              K: 'level'
+              C: 'gender',
+              D: 'status',
+              E: 'email',
+              F: 'designation',
+              G: 'department',
+              H: 'stateResidence',
+              I: 'bankName',
+              J: 'accountNumber',
+              K: 'bpjsKetenagakerjaanNumber',
+              L: 'bpjsKesehatanNumber',
+              M: 'npwp',
+              N: 'level'
           }
       }]
   });

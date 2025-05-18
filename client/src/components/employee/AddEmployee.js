@@ -9,7 +9,7 @@ import TextFieldGroup from "../common/TextFieldGroup";
 import SelectListGroup from "../common/SelectListGroup";
 import { getLevels } from "../../actions/levelActions";
 import { registerEmployee } from "../../actions/employeeActions";
-import { banks } from "../common/Utilities";
+import { banks, status, gender } from "../common/Utilities";
 import Spinner from "../common/Spinner";
 import Button from "../common/Button";
 import {Link} from 'react-router-dom';
@@ -20,6 +20,8 @@ class AddEmployee extends Component {
 
     this.state = {
       name: "",
+      gender: "",
+      status: "",
       email: "",
       designation: "",
       department: "",
@@ -27,8 +29,9 @@ class AddEmployee extends Component {
       stateResidence: "",
       bankName: "",
       accountNumber: "",
-      pfaName: "",
-      pensionAccountNumber: "",
+      bpjsKetenagakerjaanNumber: "",
+      bpjsKesehatanNumber: "",
+      npwp: "",
       errors: {}
     };
 
@@ -62,9 +65,13 @@ class AddEmployee extends Component {
     loadingBtn.appendChild(loadingComp)
 
     let bankName = this.state.bankName;
+    let status = this.state.status;
+    let gender = this.state.gender;
     bankName = bankName.toUpperCase();
     const employeeDetails = {
       name: this.state.name,
+      gender,
+      status,
       email: this.state.email,
       designation: this.state.designation,
       department: this.state.department,
@@ -72,8 +79,9 @@ class AddEmployee extends Component {
       stateResidence: this.state.stateResidence,
       bankName,
       accountNumber: this.state.accountNumber,
-      pfaName: this.state.pfaName,
-      pensionAccountNumber: this.state.pensionAccountNumber
+      bpjsKetenagakerjaanNumber: this.state.bpjsKetenagakerjaanNumber,
+      bpjsKesehatanNumber: this.state.bpjsKesehatanNumber,
+      npwp: this.state.npwp
     };
 
     this.props
@@ -83,6 +91,8 @@ class AddEmployee extends Component {
           toast.success("Employee information saved successfully!");
           this.setState({
             name: "",
+            gender: "",
+            status: "",
             email: "",
             designation: "",
             department: "",
@@ -90,8 +100,9 @@ class AddEmployee extends Component {
             stateResidence: "",
             bankName: "",
             accountNumber: "",
-            pfaName: "",
-            pensionAccountNumber: ""
+            bpjsKetenagakerjaanNumber: "",
+            bpjsKesehatanNumber: "",
+            npwp: "",
           });
         }
 
@@ -118,24 +129,42 @@ class AddEmployee extends Component {
                   <div className="card-header">
                     <h4 className="justify-content-center text-danger">
                       *All fields are required
-                      <p className="btn-primary btn-lg mt-3"><Link to="/employee/upload" className="to-upload">Upload Employee Records</Link></p>
+                      <p className="btn-primary btn-lg mt-3"><Link to="/employee/upload" className="to-upload">Upload Data Pekerja</Link></p>
                     </h4>
                   </div>
                   <div className="card-body">
                     <form onSubmit={this.onSubmit}>
                       <fieldset>
                         <legend className="text-center">
-                          Personal Information
+                          Informasi Pribadi
                         </legend>
                         <TextFieldGroup
                           type="text"
-                          label="Full Name"
-                          placeholder="Enter full name"
+                          label="Nama Lengkap"
+                          placeholder="Masukan Nama Lengkap"
                           name="name"
                           value={this.state.name}
                           error={errors.name}
                           onChange={this.onChange}
                           tabindex="1"
+                        />
+
+                        <SelectListGroup
+                          label="Jenis Kelamin"
+                          name="gender"
+                          value={this.state.gender}
+                          onChange={this.onChange}
+                          error={errors.gender}
+                          options={gender}
+                        />
+
+                        <SelectListGroup
+                          label="Status"
+                          name="status"
+                          value={this.state.status}
+                          onChange={this.onChange}
+                          error={errors.status}
+                          options={status}
                         />
 
                         <TextFieldGroup
@@ -151,8 +180,8 @@ class AddEmployee extends Component {
 
                         <TextFieldGroup
                           type="text"
-                          label="State of Residence"
-                          placeholder="Enter state of residence"
+                          label="Tempat Tinggal"
+                          placeholder="Masukan Tempat Tinggal"
                           name="stateResidence"
                           value={this.state.stateResidence}
                           error={errors.stateResidence}
@@ -167,7 +196,7 @@ class AddEmployee extends Component {
                         </legend>
 
                         <SelectListGroup
-                          label="Bank Name"
+                          label="Nama Bank"
                           name="bankName"
                           value={this.state.bankName}
                           onChange={this.onChange}
@@ -177,7 +206,7 @@ class AddEmployee extends Component {
 
                         <TextFieldGroup
                           type="text"
-                          label="Account Number"
+                          label="Nomor Rekening Bank"
                           placeholder="Enter account number"
                           name="accountNumber"
                           value={this.state.accountNumber}
@@ -188,22 +217,33 @@ class AddEmployee extends Component {
 
                         <TextFieldGroup
                           type="text"
-                          label="PFA Name"
-                          placeholder="Enter Pfa name"
-                          name="pfaName"
-                          value={this.state.pfaName}
-                          error={errors.pfaName}
+                          label="Nomor BPJS Ketenagakerjaan"
+                          placeholder="Masukan Nomor BPJS Ketenagakerjaan"
+                          name="bpjsKetenagakerjaanNumber"
+                          value={this.state.bpjsKetenagakerjaanNumber}
+                          error={errors.bpjsKetenagakerjaanNumber}
                           onChange={this.onChange}
                           tabindex="1"
                         />
 
                         <TextFieldGroup
                           type="text"
-                          label="Pension Account Number"
-                          placeholder="Enter account number"
-                          name="pensionAccountNumber"
-                          value={this.state.pensionAccountNumber}
-                          error={errors.pensionAccountNumber}
+                          label="Nomor BPJS Kesehatan"
+                          placeholder="Masukan Nomor BPJS Kesehatan"
+                          name="bpjsKesehatanNumber"
+                          value={this.state.bpjsKesehatanNumber}
+                          error={errors.bpjsKesehatanNumber}
+                          onChange={this.onChange}
+                          tabindex="1"
+                        />
+
+                        <TextFieldGroup
+                          type="text"
+                          label="Nomor NPWP"
+                          placeholder="Masukan Nomor NPWP"
+                          name="npwp"
+                          value={this.state.npwp}
+                          error={errors.npwp}
                           onChange={this.onChange}
                           tabindex="1"
                         />
@@ -215,8 +255,8 @@ class AddEmployee extends Component {
                         </legend>
                         <TextFieldGroup
                           type="text"
-                          label="Department"
-                          placeholder="Enter department"
+                          label="Departemen"
+                          placeholder="Masukan Departemen"
                           name="department"
                           value={this.state.department}
                           error={errors.department}
@@ -226,8 +266,8 @@ class AddEmployee extends Component {
 
                         <TextFieldGroup
                           type="text"
-                          label="Designation"
-                          placeholder="Enter designation"
+                          label="Jabatan"
+                          placeholder="Jabatan"
                           name="designation"
                           value={this.state.designation}
                           error={errors.designation}
@@ -236,8 +276,8 @@ class AddEmployee extends Component {
                         />
 
                         <SelectListGroup
-                          label="Employee level"
-                          placeholder="Select employee level"
+                          label="Level"
+                          placeholder="Pilih Level Pekerja"
                           name="level"
                           value={this.state.level}
                           onChange={this.onChange}

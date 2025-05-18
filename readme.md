@@ -49,8 +49,8 @@ Format slip gaji mengikuti standar Indonesia:
 
 ```bash
 # Clone repositori
-git clone https://github.com/Daffariandhika/OnPayroll-App.git
-cd OnPayroll-App
+git clone https://github.com/Daffariandhika/PayrollKu-App.git
+cd PayrollKu-App
 
 # Install dependensi
 npm install

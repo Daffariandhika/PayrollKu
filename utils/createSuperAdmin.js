@@ -43,7 +43,7 @@ const createSuperAdmin = () => {
         console.log('User email already exist');
       }
     })
-    .catch((err) => condsole.log(err));
+    .catch((err) => console.log(err));
 };
 
 const _generatePassword = () => {

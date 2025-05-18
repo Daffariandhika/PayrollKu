@@ -142,7 +142,7 @@ class Register extends Component {
                     </div>
                   </div>
                   <div className="simple-footer text-white">
-                    Copyright &copy; OnPayroll 2025
+                    Copyright &copy; PayrollKu 2025
                   </div>
                 </div>
               </div>

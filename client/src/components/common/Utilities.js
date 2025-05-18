@@ -36,6 +36,22 @@ export const banks = [
   { name: "Bank Woori Saudara", value: "Bank Woori Saudara", _id: "Bank Woori Saudara" }
 ];
 
+export const status = [
+  { name: "TK/0 (Tidak Kawin, 0 Tanggungan)", value: "TK/0", _id: "TK/0" },
+  { name: "TK/1 (Tidak Kawin, 1 Tanggungan)", value: "TK/1", _id: "TK/1" },
+  { name: "TK/2 (Tidak Kawin, 2 Tanggungan)", value: "TK/2", _id: "TK/2" },
+  { name: "TK/3 (Tidak Kawin, 3 Tanggungan)", value: "TK/3", _id: "TK/3" },
+  { name: "K/0 (Kawin, 0 Tanggungan)", value: "K/0", _id: "K/0" },
+  { name: "K/1 (Kawin, 1 Tanggungan)", value: "K/1", _id: "K/1" },
+  { name: "K/2 (Kawin, 2 Tanggungan)", value: "K/2", _id: "K/2" },
+  { name: "K/3 (Kawin, 3 Tanggungan)", value: "K/3", _id: "K/3" }
+];
+
+export const gender = [
+  { name: "Laki-Laki", value: "Laki-Laki", _id: "Laki-Laki" },
+  { name: "Perempuan", value: "Perempuan", _id: "Perempuan" }
+];
+
 export const roles = [
   {name: "Administrator", value: 0, _id: 0},
   {name: "Super Administrator", value: 1, _id: 1}

@@ -2,41 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const PayslipSchema = new Schema({
-  name: {
-    type: String
-  },
-  tag: {
-    type: String
-  },
-  department: {
-    type: String
-  },
   basic: {
     type: Number
   },
   grossEarning: {
     type: Number
-  },
-  tax: {
-    type: Number
-  },
-  pension: {
-    type: Number
-  },
-  consolidationRelief: {
-    type: Number
-  },
-  totalDeductions: {
-    type: Number
-  },
-  netPay: {
-    type: Number
-  },
-  email: {
-    type: String
-  },
-  designation: {
-    type: String
   },
   bonuses: [
     {
@@ -84,12 +54,50 @@ const PayslipSchema = new Schema({
       }
     }
   ],
+  BPJS: {
+    JHT: Number,
+    JP: Number,
+    KS: Number,
+  },
+  BPJS_employer: {
+    JHT: Number,
+    JP: Number,
+    KS: Number,
+  },
+  biayaJabatan: {
+    type: Number
+  },
+  tax: {
+    type: Number
+  },
+  totalDeductions: {
+    type: Number
+  },
+  netPay: {
+    type: Number
+  },
   employee: {
     type: Schema.Types.ObjectId,
-    ref: "employee"
+    ref: 'Employee',
+    required: true,
   },
-  taxableIncome: {
-    type: Number
+  tag: {
+    type: String
+  },
+  name: {
+    type: String
+  },
+  status: {
+    type: String
+  },
+  email: {
+    type: String
+  },
+  designation: {
+    type: String
+  },
+  department: {
+    type: String
   },
   bankName: {
     type: String,
@@ -99,13 +107,12 @@ const PayslipSchema = new Schema({
     type: String,
     required: true
   },
-  pfaName: {
+  npwp: {
     type: String,
     required: true
   },
-  pensionAccountNumber: {
+  level: {
     type: String,
-    required: true
   },
   presentMonth: {
     type: String
@@ -117,6 +124,7 @@ const PayslipSchema = new Schema({
     type: Number,
     default: 0
   }
-});
+}
+);
 
 module.exports = Payslip = mongoose.model("payslip", PayslipSchema);

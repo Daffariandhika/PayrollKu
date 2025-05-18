@@ -10,6 +10,14 @@ const EmployeeSchema = new Schema({
     type: String,
     required: true
   },
+  gender: {
+    type: String,
+    required: true
+  },
+  status: {
+    type: String,
+    required: true
+  },
   email: {
     type: String,
     required: true
@@ -34,11 +42,15 @@ const EmployeeSchema = new Schema({
     type: String,
     required: true
   },
-  pfaName: {
+  bpjsKetenagakerjaanNumber: {
     type: String,
     required: true
   },
-  pensionAccountNumber: {
+  bpjsKesehatanNumber: {
+    type: String,
+    required: true
+  },
+  npwp: {
     type: String,
     required: true
   },

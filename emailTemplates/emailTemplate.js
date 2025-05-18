@@ -1,244 +1,171 @@
 module.exports = userDetails => {
-  const name = userDetails.name.split(' ')
-    return `
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml">
-      <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Monthly Payroll</title>
-    
-        <style type="text/css">
-          @import url(http://fonts.googleapis.com/css?family=Droid+Sans);
-    
-          /* Take care of image borders and formatting */
-    
-          img {
-            max-width: 600px;
-            outline: none;
-            text-decoration: none;
-            -ms-interpolation-mode: bicubic;
-          }
-    
-          a {
-            text-decoration: none;
-            border: 0;
-            outline: none;
-            color: #bbbbbb;
-          }
-    
-          a img {
-            border: none;
-          }
-    
-          /* General styling */
-    
-          td,
-          h1,
-          h2,
-          h3 {
-            font-family: Helvetica, Arial, sans-serif;
-            font-weight: 400;
-          }
-    
-          td {
-            text-align: center;
-          }
-    
-          body {
-            -webkit-font-smoothing: antialiased;
-            -webkit-text-size-adjust: none;
-            width: 100%;
-            height: 100%;
-            color: #37302d;
-            background: #ffffff;
-            font-size: 16px;
-          }
-    
-          table {
-            border-collapse: collapse !important;
-          }
-    
-          .headline {
-            color: #ffffff;
-            font-size: 36px;
-          }
-    
-          .force-full-width {
-            width: 100% !important;
-          }
-    
-          .force-width-80 {
-            width: 80% !important;
-          }
-        </style>
-    
-        <style type="text/css" media="screen">
-          @media screen {
-            /*Thanks Outlook 2013! http://goo.gl/XLxpyl*/
-            td,
-            h1,
-            h2,
-            h3 {
-              font-family: "Droid Sans", "Helvetica Neue", "Arial", "sans-serif" !important;
-            }
-          }
-        </style>
-    
-        <style type="text/css" media="only screen and (max-width: 480px)">
-          /* Mobile styles */
-          @media only screen and (max-width: 480px) {
-            table[class="w320"] {
-              width: 320px !important;
-            }
-    
-            td[class="mobile-block"] {
-              width: 100% !important;
-              display: block !important;
-            }
-          }
-        </style>
-      </head>
-      <body
-        class="body"
-        style="padding:0; margin:0; display:block; background:#ffffff; -webkit-text-size-adjust:none"
-        bgcolor="#ffffff"
-      >
-        <table
-          align="center"
-          cellpadding="0"
-          cellspacing="0"
-          class="force-full-width"
-          height="100%"
-        >
-          <tr>
-            <td align="center" valign="top" bgcolor="#ffffff" width="100%">
-              <center>
-                <table
-                  style="margin: 0 auto;"
-                  cellpadding="0"
-                  cellspacing="0"
-                  width="600"
-                  class="w320"
-                >
-                  <tr>
-                    <td align="center" valign="top">
-                      <table
-                        style="margin: 0 auto;"
-                        cellpadding="0"
-                        cellspacing="0"
-                        class="force-full-width"
-                        style="margin:0 auto;"
-                      >
-                      </table>
-    
-                      <table
-                        style="margin: 0 auto;"
-                        cellpadding="0"
-                        cellspacing="0"
-                        class="force-full-width"
-                        bgcolor="#6777ef"
-                      >
-                        <tr>
-                          <td>
-                            <br />
-                            <img
-                              src="https://www.filepicker.io/api/file/TjmeNWS5Q2SFmtJlUGLf"
-                              width="224"
-                              height="240"
-                              alt="robot picture"
-                            />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <h2 style="color: #ffffff;">Awesome ${name[0]}!</h2>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="headline">Your payslip is ready!</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <center>
-                              <table
-                                style="margin: 0 auto;"
-                                cellpadding="0"
-                                cellspacing="0"
-                                width="60%"
-                              >
-                                <tr>
-                                  <td style="color:#fefefe;">
-                                    <br />
-                                    Your payslip for this month has been attached to
-                                    this email, you can view through your browser or
-                                    download to your device. <br />
-                                    <br />
-                                  </td>
-                                </tr>
-                              </table>
-                            </center>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div></div>
-                            <br />
-                            <br />
-                          </td>
-                        </tr>
-                      </table>
-    
-                      <table
-                        style="margin: 0 auto;"
-                        cellpadding="0"
-                        cellspacing="0"
-                        class="force-full-width"
-                        bgcolor="#414141"
-                        style="margin: 0 auto"
-                      >
-                        <tr>
-                          <td style="background-color:#414141;">
-                            <br />
-                            <br />
-                            <img
-                              src="https://www.filepicker.io/api/file/R4VBTe2UQeGdAlM7KDc4"
-                              alt="google+"
-                            />
-                            <img
-                              src="https://www.filepicker.io/api/file/cvmSPOdlRaWQZnKFnBGt"
-                              alt="facebook"
-                            />
-                            <img
-                              src="https://www.filepicker.io/api/file/Gvu32apSQDqLMb40pvYe"
-                              alt="twitter"
-                            />
-                            <br />
-                            <br />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style="color:#bbbbbb; font-size:12px;">
-                            <a href="#">View in browser</a> |
-                            <a href="#">Contact</a> <br /><br />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style="color:#bbbbbb; font-size:12px;">
-                            © 2018 All Rights Reserved <br />
-                            <br />
-                          </td>
-                        </tr>
-                      </table>
-                    </td>
-                  </tr>
-                </table>
-              </center>
-            </td>
-          </tr>
-        </table>
-      </body>
-    </html>
-    
-    `
-}
+  const name = (userDetails?.name || 'Karyawan').split(' ')[0];
+  const fullName = userDetails?.name || 'Nama Tidak Tersedia';
+  const employeeId = userDetails?.tag || 'ID Tidak Tersedia';
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.toLocaleString('id-ID', { month: 'long' });
+
+  return `
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slip Gaji Bulanan - PayrollKu.app</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f7;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      color: #333;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(90deg, #536DFE 0%, #6777EF 100%);
+      padding: 40px 20px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .header p {
+      margin: 10px 0 0;
+      font-size: 16px;
+      color: #d7dbff;
+    }
+
+    .content {
+      padding: 30px 25px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    .content p {
+      margin: 16px 0;
+    }
+
+    .summary-table {
+      width: 100%;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      margin: 25px 0;
+      overflow: hidden;
+      border-spacing: 0;
+    }
+
+    .summary-table th,
+    .summary-table td {
+      padding: 12px 16px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .summary-table th {
+      background-color: #f7f8fc;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .summary-table td {
+      background-color: #f7f8fc;
+      color: #333;
+    }
+
+    .footer {
+      background-color: #2e2e2e;
+      color: #ccc;
+      text-align: center;
+      font-size: 12px;
+      padding: 20px 10px;
+    }
+
+    .footer a {
+      color: #ccc;
+      margin: 0 8px;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .header h1 {
+        font-size: 22px;
+      }
+
+      .content {
+        padding: 20px 15px;
+      }
+
+      .summary-table th,
+      .summary-table td {
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <center>
+    <table class="container" role="presentation" cellpadding="0" cellspacing="0">
+      <tr>
+        <td class="header">
+          <h1>Halo, ${name}!</h1>
+          <p>Slip gaji Anda untuk bulan ${currentMonth} sudah tersedia</p>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="content">
+          <p>Hai ${name},</p>
+          <p>Slip gaji Anda untuk periode <strong>${currentMonth} ${currentYear}</strong> telah berhasil dibuat dan terlampir dalam email ini.</p>
+          <table class="summary-table" role="presentation">
+            <tr>
+              <th>Nama Karyawan</th>
+              <td>${fullName}</td>
+            </tr>
+            <tr>
+              <th>ID Karyawan</th>
+              <td>${employeeId}</td>
+            </tr>
+            <tr>
+              <th>Periode</th>
+              <td>${currentMonth} ${currentYear}</td>
+            </tr>
+          </table>
+          <p>Jika Anda memiliki pertanyaan atau membutuhkan bantuan lebih lanjut, jangan ragu untuk <a href="mailto:payrollku.app@gmail.com">menghubungi tim kami</a>. Kami siap membantu Anda kapan saja.</p>
+          <p>Salam hangat,<br><strong>Tim PayrollKu.app</strong></p>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="footer">
+          &copy; ${currentYear} PayrollKu.app — Semua hak dilindungi undang-undang.<br>
+          <a href="#">Lihat di Browser</a> | <a href="mailto:payrollku.app@gmail.com">Hubungi Dukungan</a>
+        </td>
+      </tr>
+    </table>
+  </center>
+</body>
+</html>
+`;
+};
