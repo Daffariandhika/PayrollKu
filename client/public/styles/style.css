@@ -83,10 +83,10 @@
 
 .login-bg{
   position: relative;
-  background-image: url("https://res.cloudinary.com/djnhrvjyf/image/upload/v1550132809/bg_kfmoug.jpg");
+  background-image: url("../wave.svg");
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  height: 110vh;
 }
 
 .login-refix{
