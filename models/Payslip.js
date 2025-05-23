@@ -54,6 +54,9 @@ const PayslipSchema = new Schema({
       }
     }
   ],
+  totalBpjs: {
+    type: Number
+  },
   BPJS: {
     JHT: Number,
     JP: Number,

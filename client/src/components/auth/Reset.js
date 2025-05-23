@@ -47,83 +47,108 @@ class Reset extends Component {
     let loadingBtn = document.querySelector('.loading');
     let loadingComp = document.createElement("i")
     loadingComp.classList = "fas fa-circle-notch fa-spin"
-    loadingBtn.innerHTML = "Set New Password "
+    loadingBtn.innerHTML = "Memproses "
     loadingBtn.appendChild(loadingComp)
 
     this.props.resetPassword(this.props.match.params.token, userCredentials)
-    .then(res => {
-        if(res.type === 'GET_SUCCESS'){
-          toast.success("Yaay! password has been reset, proceed to login")
+      .then(res => {
+        if (res.type === 'GET_SUCCESS') {
+          toast.success("Password berhasil di reset, silahkan login") && (loadingBtn.innerHTML = "Ubah Password");
         }
-        if(res.type === 'GET_ERRORS'){
-          loadingBtn.innerHTML = "Set New password"
+        if (res.type === 'GET_ERRORS') {
+          loadingBtn.innerHTML = "Ubah Password"
         }
-    })
-    .catch(err => console.log(err))
+      })
+      .catch(err => console.log(err))
   }
 
   render() {
     const { errors } = this.state;
 
     return (
-      <div className="login-bg">
-        <div id="app">
-          <section className="section">
-            <div className="container">
-              <div className="row justify-content-center">
-                <div className="col-5">
-                  <div className="card card-primary mt-5">
-                    <div className="card-header justify-content-center">
-                      <h3>Set New Password</h3>
-                    </div>
-                    <p className="mx-auto text-warning">
-                      *You can now set a new password for login!
-                    </p>
-                    <p className="mx-auto text-danger">{errors.noToken}</p>
-                    <div className="card-body">
-                      <form onSubmit={this.onSubmit}>
-                        <TextFieldGroup
-                          placeholder="Enter new password"
-                          label="Password"
-                          type="password"
-                          value={this.state.password}
-                          name="password"
-                          onChange={this.onChange}
-                          error={errors.password}
-                          tabindex="1"
-                        />
+      <div
+        style={{
+          minHeight: "100vh",
+          backgroundImage: `url("/wave3.svg")`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "20px",
+        }}
+      >
+        <div
+          id="app"
+          style={{
+            width: "100%",
+            maxWidth: "450px",
+            background: "rgba(255, 255, 255, 0.95)",
+            borderRadius: "16px",
+            padding: "20px 30px",
+            boxShadow: "0 20px 50px rgba(0, 0, 0, 0.2)",
+            backdropFilter: "blur(10px)",
+            boxSizing: "border-box",
+          }}
+        >
+          <div style={{ textAlign: "right" }}>
+            <h2
+              style={{
+                margin: 0,
+                fontWeight: 700,
+                fontSize: "28px",
+                color: "#34395e",
+              }}
+            >
+              Reset Password
+            </h2>
+            <p className="mx-auto text-warning">
+              *Buat Password Baru Anda Untuk Login!
+            </p>
+          </div>
+          <form onSubmit={this.onSubmit}>
+            <TextFieldGroup
+              placeholder="Password Baru"
+              label="Password"
+              type="password"
+              value={this.state.password}
+              name="password"
+              onChange={this.onChange}
+              error={errors.password}
+              tabindex="1"
+            />
 
-                        <TextFieldGroup
-                          placeholder="Enter new password again"
-                          label="Confirm Password"
-                          type="password"
-                          value={this.state.password2}
-                          name="password2"
-                          onChange={this.onChange}
-                          error={errors.password2}
-                          tabindex="1"
-                        />
+            <TextFieldGroup
+              placeholder="Konfirmasi Password Baru"
+              label="Konfirmasi Password"
+              type="password"
+              value={this.state.password2}
+              name="password2"
+              onChange={this.onChange}
+              error={errors.password2}
+              tabindex="1"
+            />
 
-                        <p>
-                          Done resetting ? <Link to="/">Back to login</Link>
-                        </p>
-                        <div className="form-group mt-4 mb-5">
-                          <Button
-                            type="submit"
-                            classnameItems="btn-primary btn-lg btn-block"
-                            btnName="Set New Password"
-                          />
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                  <div className="simple-footer text-white">
-                    Copyright &copy; PayrollKu 2025
-                  </div>
-                </div>
-              </div>
+            <p>
+              Sudah Reset Password? <Link to="/">Login Disini</Link>
+            </p>
+            <div className="form-group">
+              <Button
+                type="submit"
+                classnameItems="btn-primary btn-lg btn-block"
+                btnName="Ubah Password"
+              />
             </div>
-          </section>
+          </form>
+          <div
+            style={{
+              textAlign: "center",
+              fontSize: "12px",
+              color: "#999",
+            }}
+          >
+            &copy; PayrollKu 2025. All rights reserved.
+          </div>
         </div>
       </div>
     );

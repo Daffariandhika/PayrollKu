@@ -201,6 +201,7 @@ router.get('/:id', protect, async (req, res) => {
       tax,
       totalDeductable: totalDeductable,
       netPay,
+      totalBpjs,
       BPJS: {
         JHT,
         JP,
@@ -220,6 +221,7 @@ router.get('/:id', protect, async (req, res) => {
       deductables: employeeLevel.deductables,
       individualcost: individualCosts,
       oneOffPaymentArray: filteredOneOffPayments,
+      totalBpjs,
       BPJS: {
         JHT,
         JP,

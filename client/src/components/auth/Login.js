@@ -38,7 +38,7 @@ class Login extends Component {
     let loadingBtn = document.querySelector(".loading");
     let loadingComp = document.createElement("i");
     loadingComp.classList = "fas fa-circle-notch fa-spin";
-    loadingBtn.innerHTML = "Login ";
+    loadingBtn.innerHTML = "Memproses ";
     loadingBtn.appendChild(loadingComp);
 
     const loginData = {
@@ -64,66 +64,100 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="login-bg">
-        <div id="app">
-          <section className="section">
-            <div className="container">
-              <div className="row justify-content-center">
-                <div className="col-5 mt-5">
-                  <div className="card card-primary mt-5 login-refix">
-                    <div className="card-header justify-content-center">
-                      <h3>Login</h3>
-                    </div>
-                    <div className="card-body">
-                      <form onSubmit={this.onSubmit}>
-                        <TextFieldGroup
-                          placeholder="Email Address"
-                          label="Email"
-                          type="email"
-                          value={this.state.email}
-                          name="email"
-                          onChange={this.onChange}
-                          error={errors.email}
-                          tabindex="1"
-                        />
-
-                        <TextFieldGroup
-                          placeholder="Password"
-                          label="Password"
-                          type="password"
-                          value={this.state.password}
-                          name="password"
-                          onChange={this.onChange}
-                          error={errors.password}
-                          tabindex="1"
-                        />
-                        <p>
-                          Forgot password ?{" "}
-                          <Link to="/forgot-password">reset</Link>
-                        </p>
-                        <div className="form-group mt-4 mb-5">
-                          <Button
-                            type="submit"
-                            classnameItems="btn-primary btn-lg btn-block"
-                            btnName="Login"
-                          />
-                        </div>
-                      </form>
-                    </div>
-                    <div className="text-muted text-center">
-                      <p>
-                        Don't have an account?{" "}
-                        <Link to="/register">Create One</Link>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="simple-footer text-white">
-                    Copyright &copy; PayrollKu 2025
-                  </div>
-                </div>
-              </div>
+      <div
+        style={{
+          minHeight: "100vh",
+          backgroundImage: `url("/wave3.svg")`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "20px",
+        }}
+      >
+        <div
+          id="app"
+          style={{
+            width: "100%",
+            maxWidth: "450px",
+            background: "rgba(255, 255, 255, 0.95)",
+            borderRadius: "16px",
+            padding: "20px 30px",
+            boxShadow: "0 20px 50px rgba(0, 0, 0, 0.2)",
+            backdropFilter: "blur(10px)",
+            boxSizing: "border-box",
+          }}
+        >
+          <div style={{ textAlign: "right" }}>
+            <h2
+              style={{
+                margin: 0,
+                fontWeight: 700,
+                fontSize: "28px",
+                color: "#34395e",
+              }}
+            >
+              Sign In
+            </h2>
+            <p className="mx-auto text-primary">
+              Halo!, Selamat Datang Kembali
+            </p>
+          </div>
+          <form onSubmit={this.onSubmit}>
+            <TextFieldGroup
+              placeholder="Email Address"
+              label="Email"
+              type="email"
+              value={this.state.email}
+              name="email"
+              onChange={this.onChange}
+              error={errors.email}
+              tabindex="1"
+            />
+            <TextFieldGroup
+              placeholder="Password"
+              label="Password"
+              type="password"
+              value={this.state.password}
+              name="password"
+              onChange={this.onChange}
+              error={errors.password}
+              tabindex="1"
+            />
+            <p>
+              Lupa Password?{" "}
+              <Link to="/forgot-password">Reset Disini</Link>
+            </p>
+            <div className="form-group">
+              <Button
+                type="submit"
+                classnameItems="btn-primary btn-lg btn-block"
+                btnName="Login"
+              />
             </div>
-          </section>
+          </form>
+          <div
+            style={{
+              textAlign: "center",
+              fontSize: "14px",
+              color: "#6c757d",
+            }}
+          >
+            <p>
+              Belum Punya Akun?{" "}
+              <Link to="/register">Buat Disini</Link>
+            </p>
+          </div>
+          <div
+            style={{
+              textAlign: "center",
+              fontSize: "12px",
+              color: "#999",
+            }}
+          >
+            &copy; PayrollKu 2025. All rights reserved.
+          </div>
         </div>
       </div>
     );

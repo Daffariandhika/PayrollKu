@@ -38,28 +38,29 @@ class Dashboard extends Component {
               <ExceptionCard dashboard={dashboard} />
               <DeletedEmployeeCard dashboard={dashboard} />
             </div>
-            <h4 className="text-center mb-3">Monthly Analysis</h4>
+            <h4 className="text-center">Analisis Bulanan</h4>
             <div className="row">
               <Netpay net={net} />
             </div>
-            <h4 className="text-center mb-3">Yearly Analysis</h4>
+            <h4 className="text-center">Analisis Tahunan</h4>
             <div className="row">
               <SalaryPay
                 net={net.netPay}
-                cra={net.totalCra}
+                cra={net.totalGrossEarning}
                 bonus={net.totalBonus}
               />
               <OtherPays
                 tax={net.totalTax}
-                pension={net.totalPension}
-                deduction={net.totalDeduction}
+                biayaJabatan={net.totalBiayaJabatan}
+                BPJS={net.totalBpjs}
               />
             </div>
+              <h4 className="text-center mb-4">Table Pegawai</h4>
             <EmployeeRow employeeDetails={dashboard.employee} />
           </React.Fragment>
         );
       } else {
-        dashboardContent = <h4>No employees in system...</h4>;
+        dashboardContent = <h4>Tidak Ada Data Pekerja Pada Sistem...</h4>;
       }
     }
 

@@ -32,7 +32,7 @@ router.post('/register', (req, res) => {
   })
     .then((user) => {
       if (user) {
-        errors.email = 'Email Already exists';
+        errors.email = 'Email sudah terpakai';
         return res.status(400).json(errors);
       } else {
         const newUser = new User({
@@ -72,7 +72,7 @@ router.post('/login', (req, res) => {
   User.findOne({ email })
     .then((user) => {
       if (!user) {
-        errors.email = 'User not found';
+        errors.email = 'User tidak ditemukan';
         return res.status(404).json(errors);
       }
       bcrypt.compare(password, user.password).then((isMatch) => {
@@ -97,7 +97,7 @@ router.post('/login', (req, res) => {
             }
           );
         } else {
-          errors.password = 'Password incorrect';
+          errors.password = 'Password Salah';
           return res.status(400).json(errors);
         }
       });
@@ -168,17 +168,17 @@ router.post(
           let loggedPrivilege = req.body.loggedPrivilege;
 
           if (userId === currentUser) {
-            errors.role = 'You cannot set current logged user role';
+            errors.role = 'Tidak bisa memberi role saat sedang logged-in';
             return res.status(400).json(errors);
           }
 
           if (loggedPrivilege === 0) {
-            errors.role = 'You dont have the appropriate privileges';
+            errors.role = 'Anda tidak punya kewenangan';
             return res.status(400).json(errors);
           }
 
           if (user.is_admin === role) {
-            errors.role = 'User already has this role';
+            errors.role = 'Role ini telah ada pada user ini';
             return res.status(400).json(errors);
           }
 
@@ -209,7 +209,7 @@ router.post('/forgotpassword', (req, res) => {
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
-        errors.email = 'User not found';
+        errors.email = 'User tidak ditemukan';
         return res.status(404).json(errors);
       }
 
@@ -232,20 +232,56 @@ router.post('/forgotpassword', (req, res) => {
           const resetMessage = {
             to: `${user.email}`,
             from: 'muhammaddaffariandhika@gmail.com',
-            subject: 'Password Reset',
+            subject: 'Permintaan Reset Password',
             html: `<html>
-                        <head>
-                          <title>Forget Password Email</title>
-                        </head>
-                        <body>
-                          <div>
-                            <h3>Dear ${user.name},</h3>
-                            <p>You requested for a password reset on Payeroll, kindly use this <a href="https://${req.headers.host}/resetpassword/${user.token}">link</a> to reset your password</p>
-                            <br>
-                            <p>Cheers!</p>
-                          </div>
-                        </body>
-                      </html>`,
+  <head>
+    <title>Permintaan Reset Password</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f4f4; padding: 30px 0;">
+      <tr>
+        <td align="center">
+          <table width="100%" style="max-width: 600px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); overflow: hidden;" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="background-color: #4a90e2; padding: 20px; text-align: center; color: white;">
+                <h2 style="margin: 0;">🔒 Permintaan Reset Password</h2>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 30px;">
+                <p style="font-size: 16px; margin-bottom: 20px;">Halo <strong>${user.name}</strong>,</p>
+                <p style="font-size: 15px; line-height: 1.6;">
+                  Kami telah menerima permintaan untuk mereset password akun Anda di <strong>PayrollKu</strong>. Jika Anda benar-benar mengajukan permintaan ini, silakan klik tombol di bawah untuk mengatur ulang password Anda:
+                </p>
+                <div style="text-align: center; margin: 30px 0;">
+                  <a href="http://localhost:3000/resetpassword/${user.token}" style="background-color: #4a90e2; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;">
+                    Reset Password
+                  </a>
+                </div>
+                <p style="font-size: 14px; color: #666;">
+                  Jika Anda tidak merasa melakukan permintaan ini, Anda dapat mengabaikan email ini. Tautan reset ini akan kedaluwarsa dalam waktu 24 jam demi keamanan akun Anda.
+                </p>
+                <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;" />
+                <p style="font-size: 12px; color: #999;">
+                  Jika tombol di atas tidak berfungsi, salin dan tempel tautan berikut ke browser Anda:
+                  <br />
+                  <a href="http://localhost:3000/resetpassword/${user.token}" style="color: #4a90e2;">http://localhost:3000/resetpassword/${user.token}</a>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="background-color: #f4f4f4; text-align: center; padding: 20px; font-size: 12px; color: #999;">
+                &copy; 2025 PayrollKu. Seluruh hak cipta dilindungi undang-undang.
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+`,
           };
 
           mailer
@@ -254,11 +290,11 @@ router.post('/forgotpassword', (req, res) => {
               return res
                 .status(200)
                 .json({
-                  success: 'Password link sent successfully!',
+                  success: 'Password link berhasil dikirim!',
                 });
             })
             .catch(() => {
-              errors.email = 'Error sending password reset link';
+              errors.email = 'Error mengirim password link';
               return res.status(400).json(errors);
             });
         })
@@ -281,10 +317,10 @@ router.post('/resetpassword/:token', (req, res) => {
   User.findOne({ token: req.params.token })
     .then((user) => {
       if (!user.token) {
-        errors.noToken = 'Password reset token not found or invalid!';
+        errors.noToken = 'Token untuk reset password tidak ditemukan atau tidak Valid!';
         return res.status(404).json(errors);
       } else if (user.expiry < Date.now()) {
-        errors.email = 'Password reset token expired!';
+        errors.email = 'Token Untuk Reset Password Expired!';
         return res.status(422).json(errors);
       }
       if (req.params.token === user.token) {
@@ -302,19 +338,19 @@ router.post('/resetpassword/:token', (req, res) => {
                   .status(200)
                   .json({
                     user,
-                    success: 'Password successfully changed!',
+                    success: 'Password berhasil di ubah!',
                   });
               })
               .catch((err) => console.log(err));
           });
         });
       } else {
-        errors.email = 'Password reset token does not match';
+        errors.email = 'Token untuk reset password tidak sesuai';
         return res.status(400).json(errors);
       }
     })
     .catch((err) => {
-      errors.noToken = 'Password reset token not found or invalid!';
+      errors.noToken = 'Token untuk reset password tidak ditemukan atau tidak Valid!';
       return res.status(404).json(errors);
     });
 });

@@ -45,17 +45,17 @@ class Forgot extends Component {
     let loadingBtn = document.querySelector(".loading");
     let loadingComp = document.createElement("i");
     loadingComp.classList = "fas fa-circle-notch fa-spin";
-    loadingBtn.innerHTML = "Sending ";
+    loadingBtn.innerHTML = "Memproses ";
     loadingBtn.appendChild(loadingComp);
 
     this.props
       .sendResetLink(userEmail)
       .then(res => {
         if (res.type === "GET_SUCCESS") {
-          toast.success("Password reset link sent, check your inbox!");
+          toast.success("Link untuk reset password berhasil dikirim!, mohon periksa spam email anda") && (loadingBtn.innerHTML = "Reset Password");
         }
         if (res.type === "GET_ERRORS") {
-          loadingBtn.innerHTML = "Send Reset Link";
+          loadingBtn.innerHTML = "Reset Password";
         }
       })
       .catch(err => console.log(err));
@@ -65,52 +65,69 @@ class Forgot extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="login-bg">
-        <div id="app">
-          <section className="section">
-            <div className="container">
-              <div className="row justify-content-center">
-                <div className="col-5">
-                  <div className="card card-primary mt-5">
-                    <div className="card-header justify-content-center">
-                      <h3>Reset Password</h3>
-                    </div>
-                    <p className="mx-auto text-warning">
-                      *We will email you a password reset link
-                    </p>
-                    <div className="card-body">
-                      <form onSubmit={this.onSubmit}>
-                        <TextFieldGroup
-                          placeholder="Email Address"
-                          label="Email"
-                          type="email"
-                          value={this.state.email}
-                          name="email"
-                          onChange={this.onChange}
-                          error={errors.email}
-                          tabindex="1"
-                        />
+      <div
+        style={{
+          minHeight: "100vh",
+          backgroundImage: `url("/wave3.svg")`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "20px",
+        }}
+      >
+        <div
+          id="app"
+          style={{
+            width: "100%",
+            maxWidth: "450px",
+            background: "rgba(255, 255, 255, 0.95)",
+            borderRadius: "16px",
+            padding: "20px 30px",
+            boxShadow: "0 20px 50px rgba(0, 0, 0, 0.2)",
+            backdropFilter: "blur(10px)",
+            boxSizing: "border-box",
+          }}
+        >
+          <div style={{ textAlign: "right" }}>
+            <h2
+              style={{
+                margin: 0,
+                fontWeight: 700,
+                fontSize: "28px",
+                color: "#34395e",
+              }}
+            >
+              Reset Password
+            </h2>
+            <p className="mx-auto text-warning">
+              *Kami akan mengirim link untuk mereset password anda
+            </p>
+          </div>
+          <form onSubmit={this.onSubmit}>
+            <TextFieldGroup
+              placeholder="Email Address"
+              label="Email"
+              type="email"
+              value={this.state.email}
+              name="email"
+              onChange={this.onChange}
+              error={errors.email}
+              tabindex="1"
+            />
 
-                        <p>
-                          Back to <Link to="/">Login</Link>
-                        </p>
-                        <div className="form-group mt-4 mb-5">
-                          <Button
-                            type="submit"
-                            classnameItems="btn-primary btn-lg btn-block"
-                            btnName="Send Reset Link"
-                          />
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                  <div className="simple-footer text-white">
-                    Copyright &copy; PayrollKu 2025
-                  </div>
-                </div>
-              </div>
+            <p>
+              Ingat Password?<Link to="/"> Login Disini</Link>
+            </p>
+            <div className="form-group">
+              <Button
+                type="submit"
+                classnameItems="btn-primary btn-lg btn-block"
+                btnName="Reset Password"
+              />
             </div>
-          </section>
+          </form>
         </div>
       </div>
     );

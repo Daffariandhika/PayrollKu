@@ -5,7 +5,7 @@ const Footer = () => (
     <div className="footer-left">
       Copyright &copy; 2025 <div className="bullet" /> PayrollKu
     </div>
-    <div className="footer-right">v1.0.0</div>
+    <div className="footer-right">Under Development Cycle 🚧</div>
   </footer>
 );
 
