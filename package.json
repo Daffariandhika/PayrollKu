@@ -1,5 +1,5 @@
 {
-  "name": "OnPayroll",
+  "name": "PayrollKu",
   "version": "1.0.0",
   "description": "An enterprise payroll application",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Daffariandhika/OnPayroll-App.git"
+    "url": "git+https://github.com/Daffariandhika/PayrollKu-App.git"
   },
   "keywords": [
     "payroll",
@@ -24,9 +24,9 @@
   "author": "akintola olalekan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Daffariandhika/OnPayroll-App/issues"
+    "url": "https://github.com/Daffariandhika/PayrollKu-App/issues"
   },
-  "homepage": "https://github.com/Daffariandhika/OnPayroll-App#readme",
+  "homepage": "https://github.com/Daffariandhika/PayrollKu-App#readme",
   "dependencies": {
     "@sendgrid/mail": "^8.1.5",
     "bcryptjs": "^2.4.3",

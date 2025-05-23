@@ -102,13 +102,13 @@ router.get("/payoverview", protect, (req, res) => {
 
       let net = 0,
         tax = 0,
-        pension = 0,
-        consolidationRelief = 0,
+        biayaJabatan = 0,
+        grossEarning = 0,
         bonus1 = 0,
         bonus2 = 0,
         bonus3 = 0,
         totalBonus = 0,
-        otherDeduction = 0;
+        totalBpjs = 0;
 
       let grossJan = 0,
         grossFeb = 0,
@@ -198,15 +198,15 @@ router.get("/payoverview", protect, (req, res) => {
 
         net += payslipItem.netPay;
         employeeDeduction =
-          payslipItem.totalDeductions - payslipItem.tax - payslipItem.pension;
+          payslipItem.totalDeductions - payslipItem.tax - payslipItem.BiayaJabatan;
 
         tax += payslipItem.tax;
-        pension += payslipItem.pension;
-        consolidationRelief += payslipItem.consolidationRelief;
+        biayaJabatan += payslipItem.biayaJabatan;
+        grossEarning += payslipItem.grossEarning;
         bonus1 += bonusItemSum;
         bonus2 += individualcostItemSum;
         bonus3 += oneOffItemSum;
-        otherDeduction += employeeDeduction;
+        totalBpjs += payslipItem.totalBpjs;
       });
 
       jan = jan.toFixed(2);
@@ -222,10 +222,10 @@ router.get("/payoverview", protect, (req, res) => {
       nov = nov.toFixed(2);
       dec = dec.toFixed(2);
       totalTax = tax.toFixed(2);
-      totalPension = pension.toFixed(2);
-      totalCra = consolidationRelief.toFixed(2);
+      totalBiayaJabatan = biayaJabatan.toFixed(2);
+      totalGrossEarning = grossEarning.toFixed(2);
       totalBonus = (bonus1 + bonus2 + bonus3).toFixed(2);
-      totalDeduction = otherDeduction.toFixed(2);
+      totalBpjs = totalBpjs.toFixed(2);
       netPay = net.toFixed(2);
 
       const overview = {
@@ -243,10 +243,10 @@ router.get("/payoverview", protect, (req, res) => {
         dec,
         netPay,
         totalTax,
-        totalPension,
-        totalCra,
+        totalBiayaJabatan,
+        totalGrossEarning,
         totalBonus,
-        totalDeduction,
+        totalBpjs,
         grossJan,
         grossFeb,
         grossMar,

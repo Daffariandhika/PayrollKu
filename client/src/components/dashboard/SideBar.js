@@ -19,7 +19,7 @@ render() {
     <div className="main-sidebar">
      <aside id="sidebar-wrapper">
         <div className="sidebar-brand">
-            <Link to="/dashboard">OnPayroll</Link>
+            <Link to="/dashboard">PayrollKu</Link>
         </div>
         <div className="sidebar-brand sidebar-brand-sm">
             <Link to="/dashboard">PR</Link>
