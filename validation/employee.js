@@ -19,49 +19,49 @@ module.exports = function EmployeeInput(data) {
   data.npwp = !isEmpty(data.npwp) ? data.npwp : "";
 
   if (!validator.isLength(data.name, { min: 2, max: 30 })) {
-    errors.name = "Name must be between 2 and 30 characters";
+    errors.name = "Nama harus 2 sampai 3 karakter";
   }
   if (validator.isEmpty(data.name)) {
-    errors.name = "Name field is required";
+    errors.name = "Nama harus di isi";
   }
   if (validator.isEmpty(data.gender)) {
-    errors.gender = "gender field is required";
+    errors.gender = "Jenis Kelamin harus di isi";
   }
   if (validator.isEmpty(data.status)) {
-    errors.status = "status field is required";
+    errors.status = "status wajib di isi";
   }
   if (validator.isEmpty(data.email)) {
-    errors.email = "Email field is required";
+    errors.email = "Email harus di isi";
   }
   if (!validator.isEmail(data.email)) {
-    errors.email = "Email is invalid";
+    errors.email = "Format email tidak sesuai";
   }
   if (validator.isEmpty(data.designation)) {
-    errors.designation = "Designation field is required";
+    errors.designation = "Posisi harus di isi";
   }
   if (validator.isEmpty(data.department)) {
-    errors.department = "Department field is required";
+    errors.department = "Departmen harus di isi";
   }
   if (validator.isEmpty(data.level)) {
-    errors.level = "Level field is required";
+    errors.level = "Jabatan harus di isi";
   }
   if (validator.isEmpty(data.stateResidence)) {
-    errors.stateResidence = "State of residence field is required";
+    errors.stateResidence = "Tempat tinggal harus di isi";
   }
   if (validator.isEmpty(data.bankName)) {
-    errors.bankName = "Bank name field is required";
+    errors.bankName = "Nama bank harus di isi";
   }
   if (validator.isEmpty(data.accountNumber)) {
-    errors.accountNumber = "Account number field is required";
+    errors.accountNumber = "Nomor rekening harus di isi";
   }
   if (validator.isEmpty(data.bpjsKetenagakerjaanNumber)) {
-    errors.bpjsKetenagakerjaanNumber = "BPJS Ketenagakerjaan number field is required";
+    errors.bpjsKetenagakerjaanNumber = "Nomor BPJS tenaga kerja harus di isi";
   }
   if (validator.isEmpty(data.bpjsKesehatanNumber)) {
-    errors.bpjsKesehatanNumber = "BPJS Kesehatan number field is required";
+    errors.bpjsKesehatanNumber = "Nomor BPJS kesehatan harus di isi";
   }
   if (validator.isEmpty(data.npwp)) {
-    errors.npwp = "NPWP number field is required";
+    errors.npwp = "nomor NPWP harus di isi";
   }
   return {
     errors,
