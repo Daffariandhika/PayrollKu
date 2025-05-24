@@ -24,7 +24,7 @@ class ViewEmployee extends Component {
       if (Object.keys(employees).length > 0) {
         employeeTable = <EmployeeTable employees={employees} />;
       } else {
-        employeeTable = <h4>No previous employee entries!</h4>;
+        employeeTable = <h4>Data Pegawai Tidak Ditemukan!</h4>;
       }
     }
 
@@ -37,7 +37,7 @@ class ViewEmployee extends Component {
           <div className="main-content">
             <section className="section">
               <div className="section-header">
-                <h1>View Employees</h1>
+                <h1>Data Pegawai</h1>
               </div>
               {employeeTable}
             </section>

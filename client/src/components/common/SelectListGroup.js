@@ -30,7 +30,7 @@ const SelectListGroup = ({
           value={value}
           onChange={onChange}
         >
-        <option value="">Select an option</option>
+        <option value="">Pilih Opsi</option>
           {selectOptions}
 
         </select>

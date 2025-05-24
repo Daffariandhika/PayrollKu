@@ -45,24 +45,24 @@ class EmployeeTable extends Component {
 
   deleteDialog(id) {
     confirmAlert({
-      title: 'Delete employee record ?',
-      message: 'Are you sure to do this',
+      title: 'Hapus pegawai?',
+      message: 'Apakah sudah yakin untuk menghapus pegawai ini',
       buttons: [
         {
-          label: 'Yes Delete employee!',
+          label: 'Ya, hapus pegawai!',
           onClick: () => {
             this.props
               .deleteEmployee(id)
               .then((res) => {
                 if (res.type === 'DELETE_EMPLOYEE') {
-                  toast.success('Employee record deleted!');
+                  toast.success('Data pegawai dihapus!');
                 }
               })
               .catch((err) => console.log(err));
           },
         },
         {
-          label: 'No cancel delete!',
+          label: 'Tidak, kembali!',
           onClick: () => {},
         },
       ],
@@ -106,7 +106,7 @@ class EmployeeTable extends Component {
             to={`/employee/view/${employee._id}`}
             className="btn btn-info btn-sm"
           >
-            View
+            Lihat
           </Link>{' '}
           <Link
             to={`/employee/edit/${employee._id}`}
@@ -119,7 +119,7 @@ class EmployeeTable extends Component {
               className="btn btn-danger btn-sm"
               onClick={this.deleteDialog.bind(this, employee._id)}
             >
-              Delete
+              Hapus
             </button>
           )}
         </td>
@@ -130,17 +130,14 @@ class EmployeeTable extends Component {
       <div className="row">
         <div className="col-12">
           <div className="card">
-            <div className="card-header">
-              <h4 className="text-center">Basic employee details</h4>
-            </div>
             <div className="card-body">
               <div className="row">
                 <div className="col-md-3">
                   <TextFieldGroup
                     type="text"
                     name="search"
-                    label="Search payslip"
-                    placeholder="Employee tag or name"
+                    label="Cari Pegawai"
+                    placeholder="ID atau Nama pegawai"
                     value={this.state.search}
                     onChange={this.onChange}
                     tabindex="1"
@@ -149,8 +146,8 @@ class EmployeeTable extends Component {
                 </div>
                 <div className="col-md-2">
                   <SelectListGroup
-                    label="Record per page"
-                    placeholder="Select record per page"
+                    label="Jumlah Tabel"
+                    placeholder="Pilih Jumlah Tabel"
                     name="employeePerPage"
                     value={this.state.employeePerPage}
                     onChange={this.onChange}
@@ -162,12 +159,12 @@ class EmployeeTable extends Component {
                 <table className="table table-stripped" id="table-1">
                   <thead>
                     <tr>
-                      <th>Tag</th>
-                      <th>Name</th>
-                      <th>Level</th>
-                      <th>Department</th>
-                      <th>Designation</th>
-                      <th>Action</th>
+                      <th>ID</th>
+                      <th>Nama</th>
+                      <th>Jabatan</th>
+                      <th>Departmen</th>
+                      <th>Posisi</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>{employeeDetails}</tbody>

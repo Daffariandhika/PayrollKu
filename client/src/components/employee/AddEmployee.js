@@ -124,7 +124,7 @@ class AddEmployee extends Component {
         employeeForm = (
           <React.Fragment>
             <div className="row justify-content-center">
-              <div className="col-md-7">
+              <div className="col-12 col-md-10 col-lg-8 mx-auto">
                 <div className="card">
                   <div className="card-header">
                     <h4 className="justify-content-center text-danger">

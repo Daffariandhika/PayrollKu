@@ -10,6 +10,7 @@ import SideBar from "../dashboard/SideBar";
 import Footer from "../dashboard/Footer";
 import SelectListGroup from "../common/SelectListGroup";
 import Spinner from "../common/Spinner";
+import { banks, status, gender } from "../common/Utilities";
 import isEmpty from "../../validation/is-empty";
 import { toast } from "react-toastify";
 import Button from '../common/Button';
@@ -25,16 +26,19 @@ class EditEmployee extends Component {
 
     this.state = {
       name: "",
+      gender: "",
+      status: "",
       email: "",
       designation: "",
       department: "",
       level: "",
+      levelName: "",
       stateResidence: "",
       bankName: "",
       accountNumber: "",
-      pfaName: "",
-      pensionAccountNumber: "",
-      levelName: "",
+      bpjsKetenagakerjaanNumber: "",
+      bpjsKesehatanNumber: "",
+      npwp: "",
       errors: {}
     };
 
@@ -51,33 +55,33 @@ class EditEmployee extends Component {
       const employee = nextProps.employee.employee;
 
       employee.name = !isEmpty(employee.name) ? employee.name : "";
+      employee.gender = !isEmpty(employee.gender) ? employee.gender : "";
+      employee.status = !isEmpty(employee.status) ? employee.status : "";
       employee.email = !isEmpty(employee.email) ? employee.email : "";
-      employee.designation = !isEmpty(employee.designation)
-        ? employee.designation
-        : "";
-      employee.department = !isEmpty(employee.department)
-        ? employee.department
-        : "";
-      employee.levelName = !isEmpty(employee.levelName)
-        ? employee.levelName
-        : "";
-        employee.bankName = !isEmpty(employee.bankName) ? employee.bankName : "";
-        employee.pfaName = !isEmpty(employee.pfaName) ? employee.pfaName : "";
-        employee.pensionAccountNumber = !isEmpty(employee.pensionAccountNumber) ? employee.pensionAccountNumber : "";
-        employee.accountNumber = !isEmpty(employee.accountNumber) ? employee.accountNumber : "";
-        employee.stateResidence = !isEmpty(employee.stateResidence) ? employee.stateResidence : "";
+      employee.designation = !isEmpty(employee.designation) ? employee.designation : "";
+      employee.department = !isEmpty(employee.department) ? employee.department : "";
+      employee.levelName = !isEmpty(employee.levelName) ? employee.levelName : "";
+      employee.stateResidence = !isEmpty(employee.stateResidence) ? employee.stateResidence : "";
+      employee.bankName = !isEmpty(employee.bankName) ? employee.bankName : "";
+      employee.accountNumber = !isEmpty(employee.accountNumber) ? employee.accountNumber : "";
+      employee.bpjsKetenagakerjaanNumber = !isEmpty(employee.bpjsKetenagakerjaanNumber) ? employee.bpjsKetenagakerjaanNumber : "";
+      employee.bpjsKesehatanNumber = !isEmpty(employee.bpjsKesehatanNumber) ? employee.bpjsKesehatanNumber : "";
+      employee.npwp = !isEmpty(employee.npwp) ? employee.npwp : "";
 
       this.setState({
         name: employee.name,
+        gender: employee.gender,
+        status: employee.status,
         email: employee.email,
         designation: employee.designation,
         department: employee.department,
-        bankName: employee.bankName,
+        levelName: employee.levelName,
         stateResidence: employee.stateResidence,
-        pfaName: employee.pfaName,
-        pensionAccountNumber: employee.pensionAccountNumber,
+        bankName: employee.bankName,
         accountNumber: employee.accountNumber,
-        levelName: employee.levelName
+        bpjsKetenagakerjaanNumber: employee.bpjsKetenagakerjaanNumber,
+        bpjsKesehatanNumber: employee.bpjsKesehatanNumber,
+        npwp: employee.npwp
       });
     }
   }
@@ -92,27 +96,34 @@ class EditEmployee extends Component {
     let loadingBtn = document.querySelector('.loading');
     let loadingComp = document.createElement("i")
     loadingComp.classList = "fas fa-circle-notch fa-spin"
-    loadingBtn.innerHTML = "Adding "
+    loadingBtn.innerHTML = "Memproses "
     loadingBtn.appendChild(loadingComp)
 
+    let bankName = this.state.bankName;
+    let status = this.state.status;
+    let gender = this.state.gender;
+    bankName = bankName.toUpperCase();
     const employeeData = {
       name: this.state.name,
+      gender,
+      status,
       email: this.state.email,
       designation: this.state.designation,
       department: this.state.department,
       level: this.state.level,
       stateResidence: this.state.stateResidence,
-      bankName: this.state.bankName,
+      bankName,
       accountNumber: this.state.accountNumber,
-      pfaName: this.state.pfaName,
-      pensionAccountNumber: this.state.pensionAccountNumber
+      bpjsKetenagakerjaanNumber: this.state.bpjsKetenagakerjaanNumber,
+      bpjsKesehatanNumber: this.state.bpjsKesehatanNumber,
+      npwp: this.state.npwp
     };
 
     this.props
       .editEmployee(this.props.match.params.id, employeeData)
       .then(res => {
         if (res.type === "ADD_EMPLOYEE") {
-          toast.success("Employee information successfully edited!");
+          toast.success("Data Pegawai Berhasil Di Edit!");
           this.setState({
             name: "",
             email: "",
@@ -120,7 +131,7 @@ class EditEmployee extends Component {
             department: ""
           });
         }
-        loadingBtn.innerHTML = "Edit Employee";
+        loadingBtn.innerHTML = "Submit";
       }
       )
       .catch(err => console.log(err));
@@ -142,11 +153,11 @@ class EditEmployee extends Component {
         levelContainer = (
           <Fragment>
             <strong className="text-warning">
-              Current level is {this.state.levelName}
+              Jabatan Saat Ini : {this.state.levelName}
             </strong>
             <SelectListGroup
-              label="Employee level"
-              placeholder="Select employee level"
+              label="Jabatan"
+              placeholder="Jabatan"
               name="level"
               value={this.state.level}
               onChange={this.onChange}
@@ -156,7 +167,7 @@ class EditEmployee extends Component {
           </Fragment>
         );
       } else {
-        levelContainer = <option>No level found</option>;
+        levelContainer = <option>Jabatan Tidak di Temukan</option>;
       }
     }
 
@@ -167,23 +178,23 @@ class EditEmployee extends Component {
         editEmployeeContainer = (
           <React.Fragment>
             <div className="row justify-content-center">
-              <div className="col-md-7">
+              <div className="col-12 col-md-10 col-lg-8 mx-auto">
                 <div className="card">
                   <div className="card-header">
                     <h4 className="justify-content-center text-danger">
-                      *All fields are required
+                      *Semua input harus di isi
                     </h4>
                   </div>
                   <div className="card-body">
                     <form onSubmit={this.onSubmit}>
                       <fieldset>
                         <legend className="text-center">
-                          Personal Information
+                          Form Edit Data Pegawai
                         </legend>
                         <TextFieldGroup
                           type="text"
-                          label="Full Name"
-                          placeholder="Enter full name"
+                          label="Nama Lengkap"
+                          placeholder="Nama Lengkap"
                           name="name"
                           value={this.state.name}
                           error={errors.name}
@@ -191,10 +202,28 @@ class EditEmployee extends Component {
                           tabindex="1"
                         />
 
+                        <SelectListGroup
+                          label="Jenis Kelamin"
+                          name="gender"
+                          value={this.state.gender}
+                          onChange={this.onChange}
+                          error={errors.gender}
+                          options={gender}
+                        />
+
+                        <SelectListGroup
+                          label="Status"
+                          name="status"
+                          value={this.state.status}
+                          onChange={this.onChange}
+                          error={errors.status}
+                          options={status}
+                        />
+
                         <TextFieldGroup
                           type="email"
                           label="Email"
-                          placeholder="Enter valid email"
+                          placeholder="Email"
                           name="email"
                           value={this.state.email}
                           error={errors.email}
@@ -204,35 +233,31 @@ class EditEmployee extends Component {
 
                         <TextFieldGroup
                           type="text"
-                          label="State of Residence"
-                          placeholder="Enter state of residence"
+                          label="Tempat Tinggal"
+                          placeholder="Tempat Tinggal"
                           name="stateResidence"
                           value={this.state.stateResidence}
                           error={errors.stateResidence}
                           onChange={this.onChange}
                           tabindex="1"
                         />
-                      </fieldset>
 
-                      <fieldset>
-                        <legend className="text-center">
-                          Payslip Information
-                        </legend>
-                        <TextFieldGroup
-                          type="text"
-                          label="Bank Name"
-                          placeholder="Enter bank name"
+                        <strong className="text-warning">
+                          Nama Bank Saat Ini : {this.state.bankName}
+                        </strong>
+                        <SelectListGroup
+                          label="Nama Bank"
                           name="bankName"
                           value={this.state.bankName}
-                          error={errors.bankName}
                           onChange={this.onChange}
-                          tabindex="1"
+                          error={errors.bankName}
+                          options={banks}
                         />
 
                         <TextFieldGroup
                           type="text"
-                          label="Account Number"
-                          placeholder="Enter account number"
+                          label="Nomor Rekening Bank"
+                          placeholder="Nomor Rekening Bank"
                           name="accountNumber"
                           value={this.state.accountNumber}
                           error={errors.accountNumber}
@@ -242,46 +267,50 @@ class EditEmployee extends Component {
 
                         <TextFieldGroup
                           type="text"
-                          label="PFA Name"
-                          placeholder="Enter Pfa name"
-                          name="pfaName"
-                          value={this.state.pfaName}
-                          error={errors.pfaName}
+                          label="Nomor BPJS Ketenagakerjaan"
+                          placeholder="Nomor BPJS Ketenagakerjaan"
+                          name="bpjsKetenagakerjaanNumber"
+                          value={this.state.bpjsKetenagakerjaanNumber}
+                          error={errors.bpjsKetenagakerjaanNumber}
                           onChange={this.onChange}
                           tabindex="1"
                         />
 
                         <TextFieldGroup
                           type="text"
-                          label="Pension Account Number"
-                          placeholder="Enter account number"
-                          name="pensionAccountNumber"
-                          value={this.state.pensionAccountNumber}
-                          error={errors.pensionAccountNumber}
+                          label="Nomor BPJS Kesehatan"
+                          placeholder="Nomor BPJS Kesehatan"
+                          name="bpjsKesehatanNumber"
+                          value={this.state.bpjsKesehatanNumber}
+                          error={errors.bpjsKesehatanNumber}
                           onChange={this.onChange}
                           tabindex="1"
                         />
-                      </fieldset>
 
-                      <fieldset>
-                        <legend className="text-center">
-                          Company Information
-                        </legend>
                         <TextFieldGroup
                           type="text"
-                          label="Department"
-                          placeholder="Enter department"
+                          label="Nomor NPWP"
+                          placeholder="Nomor NPWP"
+                          name="npwp"
+                          value={this.state.npwp}
+                          error={errors.npwp}
+                          onChange={this.onChange}
+                          tabindex="1"
+                        />
+                        <TextFieldGroup
+                          type="text"
+                          label="Departemen"
+                          placeholder="Departemen"
                           name="department"
                           value={this.state.department}
                           error={errors.department}
                           onChange={this.onChange}
                           tabindex="1"
                         />
-
                         <TextFieldGroup
                           type="text"
-                          label="Designation"
-                          placeholder="Enter designation"
+                          label="Posisi"
+                          placeholder="Posisi"
                           name="designation"
                           value={this.state.designation}
                           error={errors.designation}
@@ -293,12 +322,12 @@ class EditEmployee extends Component {
                       </fieldset>
 
                       <div className="text-center">
-                        <Button classnameItems="btn-primary btn-lg" btnName="Edit Employee" type="submit" />
+                        <Button classnameItems="btn-primary btn-lg" btnName="Submit" type="submit" />
                         <Link
                           to="/employee/all"
                           className="btn btn-lg btn-warning ml-3"
                         >
-                          Back
+                          Kembali
                         </Link>
                       </div>
                     </form>
@@ -322,7 +351,7 @@ class EditEmployee extends Component {
           <div className="main-content">
             <section className="section">
               <div className="section-header">
-                <h1>Edit Employee </h1>
+                <h1>Edit Pegawai </h1>
               </div>
               {editEmployeeContainer}
             </section>
