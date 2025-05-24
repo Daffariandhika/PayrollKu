@@ -61,7 +61,7 @@ class AddEmployee extends Component {
     let loadingBtn = document.querySelector('.loading');
     let loadingComp = document.createElement("i")
     loadingComp.classList = "fas fa-circle-notch fa-spin"
-    loadingBtn.innerHTML = "Adding "
+    loadingBtn.innerHTML = "Memproses "
     loadingBtn.appendChild(loadingComp)
 
     let bankName = this.state.bankName;
@@ -88,7 +88,7 @@ class AddEmployee extends Component {
       .registerEmployee(employeeDetails)
       .then(res => {
         if (res.type === "ADD_EMPLOYEE") {
-          toast.success("Employee information saved successfully!");
+          toast.success("Data Pegawai Berhasil Disimpan!");
           this.setState({
             name: "",
             gender: "",
@@ -106,7 +106,7 @@ class AddEmployee extends Component {
           });
         }
 
-        loadingBtn.innerHTML = "Add Employee"
+        loadingBtn.innerHTML = "Submit"
       })
       .catch(err => console.log(err));
   }
@@ -128,20 +128,20 @@ class AddEmployee extends Component {
                 <div className="card">
                   <div className="card-header">
                     <h4 className="justify-content-center text-danger">
-                      *All fields are required
-                      <p className="btn-primary btn-lg mt-3"><Link to="/employee/upload" className="to-upload">Upload Data Pekerja</Link></p>
+                      *Seluruh input wajib di isi
+                      <p className="btn-primary btn-lg mt-3"><Link to="/employee/upload" className="to-upload">Upload Data Pekerja Dari Excel</Link></p>
                     </h4>
                   </div>
                   <div className="card-body">
                     <form onSubmit={this.onSubmit}>
                       <fieldset>
                         <legend className="text-center">
-                          Informasi Pribadi
+                          Form Data Pegawai Baru
                         </legend>
                         <TextFieldGroup
                           type="text"
                           label="Nama Lengkap"
-                          placeholder="Masukan Nama Lengkap"
+                          placeholder="Nama Lengkap"
                           name="name"
                           value={this.state.name}
                           error={errors.name}
@@ -170,7 +170,7 @@ class AddEmployee extends Component {
                         <TextFieldGroup
                           type="email"
                           label="Email"
-                          placeholder="Enter valid email"
+                          placeholder="Email"
                           name="email"
                           value={this.state.email}
                           error={errors.email}
@@ -181,20 +181,13 @@ class AddEmployee extends Component {
                         <TextFieldGroup
                           type="text"
                           label="Tempat Tinggal"
-                          placeholder="Masukan Tempat Tinggal"
+                          placeholder="Tempat Tinggal"
                           name="stateResidence"
                           value={this.state.stateResidence}
                           error={errors.stateResidence}
                           onChange={this.onChange}
                           tabindex="1"
                         />
-                      </fieldset>
-
-                      <fieldset>
-                        <legend className="text-center">
-                          Payslip Information
-                        </legend>
-
                         <SelectListGroup
                           label="Nama Bank"
                           name="bankName"
@@ -207,7 +200,7 @@ class AddEmployee extends Component {
                         <TextFieldGroup
                           type="text"
                           label="Nomor Rekening Bank"
-                          placeholder="Enter account number"
+                          placeholder="Nomor Rekening Bank"
                           name="accountNumber"
                           value={this.state.accountNumber}
                           error={errors.accountNumber}
@@ -218,7 +211,7 @@ class AddEmployee extends Component {
                         <TextFieldGroup
                           type="text"
                           label="Nomor BPJS Ketenagakerjaan"
-                          placeholder="Masukan Nomor BPJS Ketenagakerjaan"
+                          placeholder="Nomor BPJS Ketenagakerjaan"
                           name="bpjsKetenagakerjaanNumber"
                           value={this.state.bpjsKetenagakerjaanNumber}
                           error={errors.bpjsKetenagakerjaanNumber}
@@ -229,7 +222,7 @@ class AddEmployee extends Component {
                         <TextFieldGroup
                           type="text"
                           label="Nomor BPJS Kesehatan"
-                          placeholder="Masukan Nomor BPJS Kesehatan"
+                          placeholder="Nomor BPJS Kesehatan"
                           name="bpjsKesehatanNumber"
                           value={this.state.bpjsKesehatanNumber}
                           error={errors.bpjsKesehatanNumber}
@@ -240,44 +233,36 @@ class AddEmployee extends Component {
                         <TextFieldGroup
                           type="text"
                           label="Nomor NPWP"
-                          placeholder="Masukan Nomor NPWP"
+                          placeholder="Nomor NPWP"
                           name="npwp"
                           value={this.state.npwp}
                           error={errors.npwp}
                           onChange={this.onChange}
                           tabindex="1"
                         />
-                      </fieldset>
-
-                      <fieldset>
-                        <legend className="text-center">
-                          Company Information
-                        </legend>
                         <TextFieldGroup
                           type="text"
                           label="Departemen"
-                          placeholder="Masukan Departemen"
+                          placeholder="Departemen"
                           name="department"
                           value={this.state.department}
                           error={errors.department}
                           onChange={this.onChange}
                           tabindex="1"
                         />
-
                         <TextFieldGroup
                           type="text"
-                          label="Jabatan"
-                          placeholder="Jabatan"
+                          label="Posisi"
+                          placeholder="Posisi"
                           name="designation"
                           value={this.state.designation}
                           error={errors.designation}
                           onChange={this.onChange}
                           tabindex="1"
                         />
-
                         <SelectListGroup
-                          label="Level"
-                          placeholder="Pilih Level Pekerja"
+                          label="Jabatan"
+                          placeholder="Jabatan"
                           name="level"
                           value={this.state.level}
                           onChange={this.onChange}
@@ -285,12 +270,11 @@ class AddEmployee extends Component {
                           options={levels}
                         />
                       </fieldset>
-
                       <div className="text-center">
                         <Button
                           type="submit"
                           classnameItems="btn-primary btn-lg"
-                          btnName="Add Employee"
+                          btnName="Submit"
                         />
                       </div>
                     </form>
@@ -303,8 +287,7 @@ class AddEmployee extends Component {
       } else {
         employeeForm = (
           <h4 className="text-danger">
-            There's no previous employee salary level entry! Add atleast one to
-            proceed
+            Belum Terdapat Data Gaji Pokok Jabatan, Tambahkan Minimal Satu Jabatan
           </h4>
         );
       }
@@ -319,7 +302,7 @@ class AddEmployee extends Component {
           <div className="main-content">
             <section className="section">
               <div className="section-header">
-                <h1>Add Employee</h1>
+                <h1>Entri Pegawai Baru</h1>
               </div>
               {employeeForm}
             </section>
