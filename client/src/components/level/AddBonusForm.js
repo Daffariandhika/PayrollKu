@@ -61,7 +61,7 @@ class AddBonusForm extends Component {
       .addBonus(bonusDetails, this.state.level)
       .then(res => {
         if(res.type === 'VIEW_LEVELS'){
-          toast.success("Bonus successfully added!");
+          toast.success("Bonus Berhasil Ditambahkan!");
           this.setState({
             name: '',
             amount: '',
@@ -69,7 +69,7 @@ class AddBonusForm extends Component {
           })
           this.refs.addBtn.disabled = true;
         }
-        this.refs.addBtn.innerHTML = "Add Bonus "
+        this.refs.addBtn.innerHTML = "Submit "
       })
       .catch(err => console.log(err));
   }
@@ -83,8 +83,8 @@ class AddBonusForm extends Component {
       <form onSubmit={this.onSubmit}>
         <TextFieldGroup
           type="text"
-          label="Bonus Name"
-          placeholder="Enter name"
+          label="Nama Bonus"
+          placeholder="Masukan Nama Bonus"
           name="name"
           value={this.state.name}
           error={errors.name}
@@ -94,19 +94,19 @@ class AddBonusForm extends Component {
 
         <TextFieldGroup
           type="number"
-          label="Bonus Amount"
-          placeholder="Enter bonus amount"
+          label="Jumlah Bonus"
+          placeholder="Masukan Jumlah Bonus"
           name="amount"
           value={this.state.amount}
           error={errors.amount}
           onChange={this.onChange}
           tabindex="1"
-          info="Amount value should be without comma"
+          info="Tidak Perlu Koma atau Titik"
         />
 
         <SelectListGroup
-          label="Employee level"
-          placeholder="Select employee level"
+          label="Pilih Jabatan"
+          placeholder="Pilih Jabatan"
           name="level"
           value={this.state.level}
           onChange={this.onChange}
@@ -116,7 +116,7 @@ class AddBonusForm extends Component {
 
         <div className="text-center">
           <button type="submit" className="btn btn-primary btn-lg" ref="addBtn" tabIndex="4">
-            Add Bonus {" "}
+            Submit {" "}
           </button>
         </div>
       </form>
@@ -127,7 +127,7 @@ class AddBonusForm extends Component {
         <div className="col-md-10">
           <div className="card-header">
             <h4 className="justify-content-center text-danger">
-              *All fields are required
+              *Semua Field Harus di Isi
             </h4>
           </div>
           <div className="card-body">{bonusFormContainer}</div>

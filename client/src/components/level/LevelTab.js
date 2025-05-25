@@ -54,7 +54,7 @@ const LevelTab = () => {
             aria-controls="viewbonus"
             aria-selected="false"
           >
-            lihat Bonus
+            Lihat Bonus
           </a>
         </li>
         <div className="dropdown-divider" />

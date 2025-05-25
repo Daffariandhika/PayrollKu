@@ -9,24 +9,24 @@ import { formatMoney } from "../common/Utilities";
 class ViewBonusTable extends Component {
   onDelete(levelId, bonusId) {
     confirmAlert({
-      title: "Delete this bonus ?",
-      message: "Are you sure to do this",
+      title: "Hapus Bonus Ini?",
+      message: "Apakah Sudah Yakin",
       buttons: [
         {
-          label: "Yes delete bonus!",
+          label: "Ya, Hapus Bonus!",
           onClick: () => {
             this.props
               .deleteBonus(levelId, bonusId)
               .then(res => {
                 if (res.type === "VIEW_LEVELS") {
-                  toast.success("Bonus Deleted!");
+                  toast.success("Bonus dihapus!");
                 }
               })
               .catch(err => console.log(err));
           }
         },
         {
-          label: "No cancel delete!",
+          label: "Tidak, Kembali!",
           onClick: () => {}
         }
       ]
@@ -42,10 +42,10 @@ class ViewBonusTable extends Component {
         className="col-md-4 mx-auto card card-primary mt-2 bg-light"
       >
         <p className="mt-3">
-          <strong>Level Name</strong> : {level.name}
+          <strong>Jabatan</strong> : {level.name}
         </p>
         <p className="mt-2">
-          <strong>Level Salary</strong> : {" "}
+          <strong>Gaji Jabatan</strong> : {" "}
           {formatMoney(level.basic)}
         </p>
         {level.bonuses.length > 0 ? (
@@ -53,16 +53,16 @@ class ViewBonusTable extends Component {
             <h5 className="text-center">Bonus</h5>
             {level.bonuses.map(bonus => (
               <div key={bonus._id} className="text-center mb-3">
-                <p>Bonus name: {bonus.name}</p>
+                <p>Nama Bonus: {bonus.name}</p>
                 <p>
-                  Amount:  {formatMoney(bonus.amount)}
+                  Jumlah:  {formatMoney(bonus.amount)}
                 </p>
                 <div>
                   <button
                     className="btn btn-sm btn-danger"
                     onClick={this.onDelete.bind(this, level._id, bonus._id)}
                   >
-                    Delete
+                    Hapus
                   </button>
                 </div>
                 <hr />
