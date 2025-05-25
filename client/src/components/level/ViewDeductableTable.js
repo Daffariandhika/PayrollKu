@@ -9,20 +9,20 @@ import { formatMoney } from "../common/Utilities";
 class ViewDeductableTable extends Component {
   onDelete(levelId, bonusId) {
     confirmAlert({
-      title: "Delete this deductable ?",
-      message: "Are you sure to do this",
+      title: "Hapus Potongan Ini ?",
+      message: "Apakah Sudah Yakin Untuk Menghapus",
       buttons: [
         {
-          label: "Yes delete!",
+          label: "Ya, Hapus Potongan!",
           onClick: () => {
             this.props
               .deleteDeductable(levelId, bonusId)
-              .then(res => toast.success("Deductable Deleted!"))
+              .then(res => toast.success("Potongan dihapus!"))
               .catch(err => console.log(err));
           }
         },
         {
-          label: "No cancel delete!",
+          label: "Tidak, Kembali!",
           onClick: () => {}
         }
       ]
@@ -38,20 +38,20 @@ class ViewDeductableTable extends Component {
         className="col-md-4 mx-auto card card-primary mt-2 bg-light"
       >
         <p className="mt-3">
-          <strong>Level Name</strong> : {level.name}
+          <strong>Jabatan</strong> : {level.name}
         </p>
         <p className="mt-2">
-          <strong>Level Salary</strong> : {" "}
+          <strong>Gaji Pokok</strong> : {" "}
           {formatMoney(level.basic)}
         </p>
         {level.deductables.length > 0 ? (
           <div>
-            <h5 className="text-center">Deduction</h5>
+            <h5 className="text-center">Potongan</h5>
             {level.deductables.map(deductable => (
               <div key={deductable._id} className="text-center mb-3">
-                <p>Deduction name: {deductable.name}</p>
+                <p>Nama Potongan: {deductable.name}</p>
                 <p>
-                  Amount:  {formatMoney(deductable.amount)}
+                  Jumlah:  {formatMoney(deductable.amount)}
                 </p>
                 <div>
                   <button
@@ -62,7 +62,7 @@ class ViewDeductableTable extends Component {
                       deductable._id
                     )}
                   >
-                    Delete
+                    Hapus
                   </button>
                 </div>
                 <hr />

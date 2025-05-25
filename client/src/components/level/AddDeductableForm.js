@@ -60,7 +60,7 @@ class AddDeductableForm extends Component {
       .addDeductable(deductableDetails, this.state.level)
       .then(res => {
         if (res.type === 'VIEW_LEVELS') {
-          toast.success("Deductable successfully added!");
+          toast.success("Potongan Berhasil ditambahkan!");
           this.setState({
             name: '',
             amount: '',
@@ -68,7 +68,7 @@ class AddDeductableForm extends Component {
           })
           this.refs.addBtn.disabled = true;
         }
-        this.refs.addBtn.innerHTML = "Add Deductable "
+        this.refs.addBtn.innerHTML = "Submit "
       })
       .catch(err => console.log(err));
   }
@@ -81,8 +81,8 @@ class AddDeductableForm extends Component {
       <form onSubmit={this.onSubmit}>
         <TextFieldGroup
           type="text"
-          label="Deductable Name"
-          placeholder="Enter name"
+          label="Nama Potongan"
+          placeholder="Masukan Nama Potongan"
           name="name"
           value={this.state.name}
           error={errors.name}
@@ -92,19 +92,19 @@ class AddDeductableForm extends Component {
 
         <TextFieldGroup
           type="number"
-          label="Deductable Amount"
-          placeholder="Enter amount"
+          label="Jumlah Potongan"
+          placeholder="Masukan Jumlah Potongan"
           name="amount"
           value={this.state.amount}
           error={errors.amount}
           onChange={this.onChange}
           tabindex="1"
-          info="Amount value should be without comma"
+          info="Tidak Perlu Koma atau Titik"
         />
 
         <SelectListGroup
-          label="Employee level"
-          placeholder="Select employee level"
+          label="Pilih Jabatan"
+          placeholder="Pilih Jabatan"
           name="level"
           value={this.state.level}
           onChange={this.onChange}
@@ -114,7 +114,7 @@ class AddDeductableForm extends Component {
 
         <div className="text-center">
           <button type="submit" className="btn btn-primary btn-lg loading" ref="addBtn" tabIndex="4">
-            Add Deductable{" "}
+            Submit{" "}
           </button>
         </div>
       </form>
@@ -125,7 +125,7 @@ class AddDeductableForm extends Component {
         <div className="col-md-10">
           <div className="card-header">
             <h4 className="justify-content-center text-danger">
-              *All fields are required
+              *Semua Field Harus di Isi
             </h4>
           </div>
           <div className="card-body">{deductableFormContainer}</div>
