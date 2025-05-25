@@ -1,16 +1,15 @@
-import React from "react";
+import Footer from "../../dashboard/Footer";
 import SearchBar from "../../dashboard/SearchBar";
 import SideBar from "../../dashboard/SideBar";
-import Footer from "../../dashboard/Footer";
+import EmployeeMonthYear from "./links/EmployeeMonthYear";
 import MonthlyPayroll from "./links/MonthlyPayroll";
 import MonthlyPension from "./links/MonthlyPension";
 import MonthlyTax from "./links/MonthlyTax";
-import YearlySingleEmployee from "./links/YearlySingleEmployee";
-import YearlyAllEmployee from "./links/YearlyAllEmployee";
-import YearlyMonthlyslip from "./links/YearlyMonthlyslip";
-import EmployeeMonthYear from "./links/EmployeeMonthYear";
 import MonthYear from "./links/MonthYear";
 import Year from "./links/Year";
+import YearlyAllEmployee from "./links/YearlyAllEmployee";
+import YearlyMonthlyslip from "./links/YearlyMonthlyslip";
+import YearlySingleEmployee from "./links/YearlySingleEmployee";
 
 const MonthlyDashboard = () => {
   let date = new Date();
@@ -27,10 +26,10 @@ const MonthlyDashboard = () => {
           <div className="main-content">
             <section className="section">
               <div className="section-header">
-                <h1>Payroll report</h1>
+                <h1>Laporan Payroll</h1>
               </div>
               <h4 className="text-center">
-                Payroll Report for the month of {presentMonth}
+                Laporan Payroll Untuk Bulan {presentMonth}
               </h4>
               <div className="row mt-3">
                 <MonthlyPayroll />
@@ -39,7 +38,7 @@ const MonthlyDashboard = () => {
               </div>
 
               <h4 className="text-center mt-3">
-                Payroll Report for the year {year}
+                Laporan Payroll Untuk Tahun {year}
               </h4>
               <div className="row mt-4">
                 <YearlyMonthlyslip />
@@ -48,7 +47,7 @@ const MonthlyDashboard = () => {
               </div>
 
               <h4 className="text-center mt-3">
-                All Time Payroll Report
+                All Time Laporan Payroll
               </h4>
               <div className="row mt-4">
                 <EmployeeMonthYear />

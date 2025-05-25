@@ -1,18 +1,18 @@
-import React, { PureComponent, Fragment } from "react";
+import { PDFExport } from "@progress/kendo-react-pdf";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Fragment, PureComponent } from "react";
 import { connect } from "react-redux";
-import { months } from "../../../common/Utilities";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { getEmployees } from "../../../../actions/employeeActions";
 import { getEmployeeMonthYear } from "../../../../actions/payrollActions";
-import SelectListGroup from "../../../common/SelectListGroup";
-import TextFieldGroup from "../../../common/TextFieldGroup";
 import Button from "../../../common/Button";
+import SelectListGroup from "../../../common/SelectListGroup";
+import Spinner from "../../../common/Spinner";
+import TextFieldGroup from "../../../common/TextFieldGroup";
+import { months } from "../../../common/Utilities";
 import SearchBar from "../../../dashboard/SearchBar";
 import SideBar from "../../../dashboard/SideBar";
-import Spinner from "../../../common/Spinner";
-import { toast } from "react-toastify";
-import { PDFExport } from "@progress/kendo-react-pdf";
 import AllTimeSingleTable from "./AllTimeSingleTable";
 
 export class AllTimeSingle extends PureComponent {
@@ -100,8 +100,8 @@ export class AllTimeSingle extends PureComponent {
                 <div className="card-body mt-3">
                   <form onSubmit={this.onSubmit}>
                     <SelectListGroup
-                      label="Employee"
-                      placeholder="Select employee level"
+                      label="Pegawai"
+                      placeholder="Masukan Pegawai"
                       name="employee"
                       value={this.state.employee}
                       onChange={this.onChange}
@@ -110,8 +110,8 @@ export class AllTimeSingle extends PureComponent {
                     />
 
                     <SelectListGroup
-                      label="Month"
-                      placeholder="Select month"
+                      label="Bulan"
+                      placeholder="Masukan Bulan"
                       name="month"
                       value={this.state.month}
                       onChange={this.onChange}
@@ -120,9 +120,9 @@ export class AllTimeSingle extends PureComponent {
                     />
 
                     <TextFieldGroup
-                      label="Year"
+                      label="Tahun"
                       type="number"
-                      placeholder="Enter Year"
+                      placeholder="Masukan Tahun"
                       name="year"
                       value={this.state.year}
                       onChange={this.onChange}
@@ -133,13 +133,13 @@ export class AllTimeSingle extends PureComponent {
                       <Button
                         type="submit"
                         classnameItems="btn-info btn-lg"
-                        btnName="Get payslip"
+                        btnName="Cari Slip"
                       />
                       <Link
                         to="/payroll/all"
                         className="btn btn-lg btn-warning"
                       >
-                        Back
+                        Kembali
                       </Link>
                     </div>
                   </form>
@@ -180,7 +180,7 @@ export class AllTimeSingle extends PureComponent {
                   <Button
                     classnameItems="btn-lg btn-success"
                     onClick={this.exportPDF}
-                    btnName="Download payslip PDF"
+                    btnName="Download PDF"
                   />
                 </div>
               </Fragment>
@@ -190,7 +190,7 @@ export class AllTimeSingle extends PureComponent {
           }
         }
       } else {
-        searchContainer = <h4>No previous employee entries in the system</h4>;
+        searchContainer = <h4>Data Pegawai Tidak Ditemukan</h4>;
       }
     }
     return (
@@ -202,11 +202,11 @@ export class AllTimeSingle extends PureComponent {
           <div className="main-content">
             <section className="section">
               <div className="section-header">
-                <h1>Payroll report</h1>
+                <h1>Laporan Payroll</h1>
               </div>
 
               <h4 className="text-center mt-4">
-                Search generated employee payslip by name, month and year.
+                Cari Slip Berdasarkan Nama, Bulan dan Tahun.
               </h4>
               {searchContainer}
               {payslipTableContainer}

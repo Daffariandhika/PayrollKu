@@ -1,10 +1,10 @@
-import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Component } from "react";
 import { connect } from "react-redux";
 import { getAllYearlyPayslip } from "../../../../actions/payrollActions";
+import Spinner from "../../../common/Spinner";
 import SearchBar from "../../../dashboard/SearchBar";
 import SideBar from "../../../dashboard/SideBar";
-import Spinner from "../../../common/Spinner";
 import AllEmployeeTable from "./AllEmployeeTable";
 
 class AllEmployee extends Component {
@@ -13,8 +13,6 @@ class AllEmployee extends Component {
   };
 
   render() {
-    let date = new Date();
-    const year = date.getFullYear();
 
     const { payrollRecordsYearly, loading } = this.props.payrollRecordsYearly;
     let AllEmployeeSlipContainer;
@@ -28,7 +26,7 @@ class AllEmployee extends Component {
         );
       } else {
         AllEmployeeSlipContainer = (
-          <h4 className="text-center mt-5">No previously generated payslips</h4>
+          <h4 className="text-center mt-5">Slip Tidak Ditemukan</h4>
         );
       }
     }
@@ -42,12 +40,8 @@ class AllEmployee extends Component {
           <div className="main-content">
             <section className="section">
               <div className="section-header">
-                <h1>Payroll report</h1>
+                <h1>Laporan Payroll</h1>
               </div>
-
-              <h4 className="text-center mt-4">
-                All employee payslips generated for the year {year}
-              </h4>
               {AllEmployeeSlipContainer}
             </section>
           </div>

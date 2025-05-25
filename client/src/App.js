@@ -83,7 +83,7 @@ class App extends Component {
                 component={ViewEmployee}
               />
             </Switch>
-            <Switch><PrivateRoute exact path="/employee/upload" component={UploadEmployee} />></Switch>
+            <Switch><PrivateRoute exact path="/employee/upload" component={UploadEmployee} /></Switch>
             <Switch>
               <PrivateRoute
                 exact

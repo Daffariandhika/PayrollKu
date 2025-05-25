@@ -1,15 +1,15 @@
-import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { PureComponent } from "react";
 import { connect } from "react-redux";
-import { months } from "../../../common/Utilities";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { getMonthYear } from "../../../../actions/payrollActions";
+import Button from "../../../common/Button";
 import SelectListGroup from "../../../common/SelectListGroup";
 import TextFieldGroup from "../../../common/TextFieldGroup";
-import Button from "../../../common/Button";
+import { months } from "../../../common/Utilities";
 import SearchBar from "../../../dashboard/SearchBar";
 import SideBar from "../../../dashboard/SideBar";
-import { toast } from "react-toastify";
 import AllTImeMonthYearTable from "./AllTImeMonthYearTable";
 
 export class AllTimeMonthYear extends PureComponent {
@@ -49,7 +49,7 @@ export class AllTimeMonthYear extends PureComponent {
     let loadingBtn = document.querySelector('.loading');
     let loadingComp = document.createElement("i")
     loadingComp.classList = "fas fa-circle-notch fa-spin"
-    loadingBtn.innerHTML = "Fetching payslips "
+    loadingBtn.innerHTML = "Memproses "
     loadingBtn.appendChild(loadingComp)
 
     const { month, year } = this.state;
@@ -57,14 +57,14 @@ export class AllTimeMonthYear extends PureComponent {
       month,
       year
     };
-    
+
     this.props
       .getMonthYear(payslipData)
       .then(res => {
         if (res.type === "VIEW_MONTH_YEAR" && Object.keys(res.payload).length === 0) {
-          toast.warn("Payslips not found or hasn't been generated");
+          toast.warn("Slip Tidak Ditemukan atau Belum Dibuat");
         }
-        loadingBtn.innerHTML = "Get payslips"
+        loadingBtn.innerHTML = "Cari Slip"
       })
       .catch(err => console.log(err));
   }
@@ -93,19 +93,19 @@ export class AllTimeMonthYear extends PureComponent {
           <div className="main-content">
             <section className="section">
               <div className="section-header">
-                <h1>Payroll report</h1>
+                <h1>Laporan Payroll</h1>
               </div>
 
               <h4 className="text-center mt-4">
-                Search generated employee payslip by month and year.
+                Cari Slip Pegawai Berdasarkan Bulan Dan Tahun.
               </h4>
               <div className="row justify-content-center">
                 <div className="col-md-4">
                   <div className="card-body mt-3">
                     <form onSubmit={this.onSubmit}>
                       <SelectListGroup
-                        label="Month"
-                        placeholder="Select month"
+                        label="Bulan"
+                        placeholder="Pilih Bulan"
                         name="month"
                         value={this.state.month}
                         onChange={this.onChange}
@@ -114,9 +114,9 @@ export class AllTimeMonthYear extends PureComponent {
                       />
 
                       <TextFieldGroup
-                        label="Year"
+                        label="Tahun"
                         type="number"
-                        placeholder="Enter Year"
+                        placeholder="Masukan Tahun"
                         name="year"
                         value={this.state.year}
                         onChange={this.onChange}
@@ -127,13 +127,13 @@ export class AllTimeMonthYear extends PureComponent {
                         <Button
                           type="submit"
                           classnameItems="btn-info btn-lg"
-                          btnName="Get payslips"
+                          btnName="Cari Slip"
                         />
                         <Link
                           to="/payroll/all"
                           className="btn btn-lg btn-warning"
                         >
-                          Back
+                          Kembali
                         </Link>
                       </div>
                     </form>

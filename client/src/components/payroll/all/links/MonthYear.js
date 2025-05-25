@@ -5,7 +5,7 @@ const MonthYear = () => (
   <div className="card col-md-4">
     <div className="card-body mx-auto">
       <Link to="/payroll/all/monthyear" className="btn btn-lg btn-primary">
-        Monthly/Yearly Employee Records
+        Record Slip Bulanan/Tahunan
       </Link>
     </div>
   </div>

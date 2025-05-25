@@ -1,16 +1,16 @@
-import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { getEmployees } from "../../../../actions/employeeActions";
 import { getEmployeeYearlySlip } from "../../../../actions/payrollActions";
+import Button from "../../../common/Button";
 import SelectListGroup from "../../../common/SelectListGroup";
+import Spinner from "../../../common/Spinner";
 import SearchBar from "../../../dashboard/SearchBar";
 import SideBar from "../../../dashboard/SideBar";
-import Spinner from "../../../common/Spinner";
-import { toast } from "react-toastify";
 import SingleEmployeeTable from "./SingleEmployeeTable";
-import Button from "../../../common/Button";
 
 class SingleEmployee extends Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class SingleEmployee extends Component {
     let loadingBtn = document.querySelector('.loading');
     let loadingComp = document.createElement("i")
     loadingComp.classList = "fas fa-circle-notch fa-spin"
-    loadingBtn.innerHTML = "Fetching payslips "
+    loadingBtn.innerHTML = "Memproses "
     loadingBtn.appendChild(loadingComp)
 
     this.props
@@ -48,14 +48,14 @@ class SingleEmployee extends Component {
           res.type === "VIEW_PAYROLL_RECORDS" &&
           Object.keys(res.payload).length === 0
         ) {
-          toast.warn("Payslip record not found");
+          toast.warn("Payslip Record Tidak Ditemukan");
         }
 
         if (res.type === "GET_ERRORS" && typeof res.payload === "string") {
-          toast.error("Please select an employee");
+          toast.error("Mohon Pilih Pegawai");
         }
 
-        loadingBtn.innerHTML = "Get Payslips"
+        loadingBtn.innerHTML = "Cari Payslip"
       })
       .catch(err => console.log(err));
   }
@@ -79,8 +79,8 @@ class SingleEmployee extends Component {
                 <div className="card-body mt-4">
                   <form onSubmit={this.onSubmit}>
                     <SelectListGroup
-                      label="Employee"
-                      placeholder="Select employee level"
+                      label="Pegawai"
+                      placeholder="Pilih Jabatan Pegawai"
                       name="employee"
                       value={this.state.employee}
                       onChange={this.onChange}
@@ -90,14 +90,14 @@ class SingleEmployee extends Component {
                       <Button
                         type="submit"
                         classnameItems="btn-info btn-lg"
-                        btnName="Get payslips"
+                        btnName="Cari Slip"
                       />
 
                       <Link
                         to="/payroll/all"
                         className="btn btn-lg btn-warning"
                       >
-                        Back
+                        Kembali
                       </Link>
                     </div>
                   </form>
@@ -119,7 +119,7 @@ class SingleEmployee extends Component {
           }
         }
       } else {
-        searchContainer = <h4>No previous employee entries in the system</h4>;
+        searchContainer = <h4>Record Pegawai Tidak Ditemukan Dalam Sistem</h4>;
       }
     }
 
@@ -132,11 +132,11 @@ class SingleEmployee extends Component {
           <div className="main-content">
             <section className="section">
               <div className="section-header">
-                <h1>Payroll report</h1>
+                <h1>Laporan Payroll</h1>
               </div>
 
               <h4 className="text-center mt-4">
-                Search generated employee payslips for the year {year}
+                Cari Slip Pegawai Tahun {year}
               </h4>
               {searchContainer}
               {payslipTableContainer}

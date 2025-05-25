@@ -1,18 +1,18 @@
-import React, { PureComponent, Fragment } from "react";
-import { Link } from "react-router-dom";
+import { PDFExport } from "@progress/kendo-react-pdf";
 import PropTypes from "prop-types";
+import { Fragment, PureComponent } from "react";
 import { connect } from "react-redux";
-import { months } from "../../../common/Utilities";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { getEmployees } from "../../../../actions/employeeActions";
 import { getMonthlyPayslip } from "../../../../actions/payrollActions";
+import Button from "../../../common/Button";
 import SelectListGroup from "../../../common/SelectListGroup";
+import Spinner from "../../../common/Spinner";
+import { months } from "../../../common/Utilities";
 import SearchBar from "../../../dashboard/SearchBar";
 import SideBar from "../../../dashboard/SideBar";
-import Spinner from "../../../common/Spinner";
-import { toast } from "react-toastify";
 import MonthlySlipRecordTable from "./MonthlySlipRecordTable";
-import { PDFExport } from "@progress/kendo-react-pdf";
-import Button from "../../../common/Button";
 
 export class MonthlySlipRecord extends PureComponent {
   static propTypes = {
@@ -56,7 +56,7 @@ export class MonthlySlipRecord extends PureComponent {
     let loadingBtn = document.querySelector('.loading');
     let loadingComp = document.createElement("i")
     loadingComp.classList = "fas fa-circle-notch fa-spin"
-    loadingBtn.innerHTML = "Fetching payslip "
+    loadingBtn.innerHTML = "Memproses "
     loadingBtn.appendChild(loadingComp)
 
     const { employee, month } = this.state;
@@ -72,7 +72,7 @@ export class MonthlySlipRecord extends PureComponent {
         if (res.type === "GET_ERRORS" && res.payload.monthlyslip) {
           toast.warn(res.payload.monthlyslip);
         }
-        loadingBtn.innerHTML = "Get Payslip"
+        loadingBtn.innerHTML = "Cari Slip"
       })
       .catch(err => console.log(err));
   }
@@ -102,7 +102,7 @@ export class MonthlySlipRecord extends PureComponent {
                 <div className="card-body mt-4">
                   <form onSubmit={this.onSubmit}>
                     <SelectListGroup
-                      label="Employee"
+                      label="Nama Pegawai"
                       placeholder="Select employee level"
                       name="employee"
                       value={this.state.employee}
@@ -112,7 +112,7 @@ export class MonthlySlipRecord extends PureComponent {
                     />
 
                     <SelectListGroup
-                      label="Month"
+                      label="Bulan"
                       placeholder="Select month"
                       name="month"
                       value={this.state.month}
@@ -125,13 +125,13 @@ export class MonthlySlipRecord extends PureComponent {
                       <Button
                         type="submit"
                         classnameItems="btn-info btn-lg"
-                        btnName="Get payslip"
+                        btnName="Cari Slip"
                       />
                       <Link
                         to="/payroll/all"
                         className="btn btn-lg btn-warning"
                       >
-                        Back
+                        Kembali
                       </Link>
                     </div>
                   </form>
@@ -172,7 +172,7 @@ export class MonthlySlipRecord extends PureComponent {
                   <Button
                     classnameItems="btn-lg btn-success"
                     onClick={this.exportPDF}
-                    btnName="Download payslip PDF"
+                    btnName="Download PDF"
                   />
                 </div>
               </Fragment>
@@ -182,7 +182,7 @@ export class MonthlySlipRecord extends PureComponent {
           }
         }
       } else {
-        searchContainer = <h4>No previous employee entries in the system</h4>;
+        searchContainer = <h4>Data Pegawai Tidak Ditemukan</h4>;
       }
     }
 
@@ -195,11 +195,11 @@ export class MonthlySlipRecord extends PureComponent {
           <div className="main-content">
             <section className="section">
               <div className="section-header">
-                <h1>Payroll report</h1>
+                <h1>Laporan Payroll</h1>
               </div>
 
               <h4 className="text-center mt-4">
-                Search generated employee payslip within any month for the year{" "}
+                Cari Slip Berdasarkan Bulan Pada Tahun{" "}
                 {year}
               </h4>
               {searchContainer}

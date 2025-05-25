@@ -46,7 +46,7 @@ class SearchBar extends Component {
             </ul>
           </form>
           <ul className="navbar-nav navbar-right">
-            <li><Link to="/employee/upload" className="btn btn-warning">Upload Employee Records</Link></li>
+            <li><Link to="/employee/upload" className="btn btn-warning">Upload Record Pegawai</Link></li>
           <li className="dropdown">
               <a
                 href="#"

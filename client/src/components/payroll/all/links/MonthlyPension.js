@@ -5,7 +5,7 @@ const MonthlyPension = () => (
   <div className="card col-md-4">
     <div className="card-body mx-auto">
       <Link to="/payroll/all/pension" className="btn btn-lg btn-primary">
-        Employees pension
+        Record Pensiunan
       </Link>
     </div>
   </div>
