@@ -29,17 +29,17 @@ class ViewLevelTable extends Component {
 
   deleteDialog(id) {
     confirmAlert({
-      title: 'Delete employee level ?',
-      message: 'Are you sure to do this',
+      title: 'Hapus Jabatan Ini ?',
+      message: 'Apakah Sudah Yakin Untuk Menghapus',
       buttons: [
         {
-          label: 'Yes Delete level!',
+          label: 'Ya, Hapus Jabatan!',
           onClick: () => {
             this.props
               .deleteLevel(id)
               .then((res) => {
                 if (res.type === 'DELETE_LEVEL') {
-                  toast.success('Employee level deleted!');
+                  toast.success('Jabatan Berhasil dihapus!');
                 } else {
                   if (res.type === 'GET_ERRORS')
                     toast.error(`${res.payload.message}`);
@@ -49,7 +49,7 @@ class ViewLevelTable extends Component {
           },
         },
         {
-          label: 'No cancel delete!',
+          label: 'Tidak, Kembali!',
           onClick: () => {},
         },
       ],
@@ -97,7 +97,7 @@ class ViewLevelTable extends Component {
             className="btn btn-danger btn-sm"
             onClick={this.deleteDialog.bind(this, level._id)}
           >
-            Delete
+            Hapus
           </button>
         </td>
       </tr>
@@ -108,7 +108,7 @@ class ViewLevelTable extends Component {
         <div className="col-md-10">
           <div className="card-header">
             <h4 className="justify-content-center">
-              View all employee levels
+              Preview Semua Jabatan
             </h4>
           </div>
           <div className="card-body">
@@ -116,7 +116,7 @@ class ViewLevelTable extends Component {
               <div className="col-md-3">
                 <SelectListGroup
                   label="Record per page"
-                  placeholder="Select record per page"
+                  placeholder="Pilih record per page"
                   name="levelPerPage"
                   value={this.state.levelPerPage}
                   onChange={this.onChange}
@@ -128,10 +128,10 @@ class ViewLevelTable extends Component {
               <table className="table table-stripped" id="table-1">
                 <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Basic Salary</th>
-                    <th>Description</th>
-                    <th>Action</th>
+                    <th>Nama</th>
+                    <th>Gaji Pokok</th>
+                    <th>Deskripsi</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>{levelTableContainer}</tbody>

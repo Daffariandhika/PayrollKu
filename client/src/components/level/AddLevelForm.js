@@ -39,7 +39,7 @@ class AddLevelForm extends Component {
     let loadingBtn = document.querySelector('.loading');
     let loadingComp = document.createElement("i")
     loadingComp.classList = "fas fa-circle-notch fa-spin"
-    loadingBtn.innerHTML = "Adding "
+    loadingBtn.innerHTML = "Memproses "
     loadingBtn.appendChild(loadingComp)
 
     const levelDetails = {
@@ -52,14 +52,14 @@ class AddLevelForm extends Component {
       .addLevel(levelDetails)
       .then(res => {
         if (res.type === "ADD_LEVEL") {
-          toast.success("Level information successfully added!");
+          toast.success("Jabatan Berhasil Ditambahkan!");
           this.setState({
             name: "",
             basic: "",
             description: ""
           });
 
-          loadingBtn.innerHTML = "Add Level"
+          loadingBtn.innerHTML = "Submit"
         }
       })
       .catch(err => console.log(err));
@@ -72,15 +72,15 @@ class AddLevelForm extends Component {
         <div className="col-md-10">
           <div className="card-header">
             <h4 className="justify-content-center text-danger">
-              *All fields are required
+              *Semua Field Harus di Isi
             </h4>
           </div>
           <div className="card-body">
             <form onSubmit={this.onSubmit}>
               <TextFieldGroup
                 type="text"
-                label="Level Name"
-                placeholder="Enter name"
+                label="Nama Jabatan"
+                placeholder="Masukan Jabatan"
                 name="name"
                 value={this.state.name}
                 error={errors.name}
@@ -90,20 +90,20 @@ class AddLevelForm extends Component {
 
               <TextFieldGroup
                 type="number"
-                label="Basic Salary"
-                placeholder="Enter basic salary"
+                label="Gaji Pokok"
+                placeholder="Masukan Gaji Pokok"
                 name="basic"
                 value={this.state.basic}
                 error={errors.basic}
                 onChange={this.onChange}
                 tabindex="1"
-                info="Salary value should be without comma"
+                info="Tidak perlu Koma atau Titik"
               />
 
               <TextFieldGroup
                 type="text"
-                label="Level Description"
-                placeholder="Enter description"
+                label="Deskripsi Jabatan"
+                placeholder="Masukan Deskripsi"
                 name="description"
                 value={this.state.description}
                 error={errors.description}
@@ -112,7 +112,7 @@ class AddLevelForm extends Component {
               />
 
               <div className="text-center">
-                <Button classnameItems="btn-primary btn-lg" type="submit" btnName="Add Level" />         
+                <Button classnameItems="btn-primary btn-lg" type="submit" btnName="Submit" />
               </div>
             </form>
           </div>
