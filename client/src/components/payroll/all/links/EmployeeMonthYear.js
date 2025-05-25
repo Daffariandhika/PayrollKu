@@ -8,7 +8,7 @@ const EmployeeMonthYear = () => (
         to="/payroll/all/employeemonthyear"
         className="btn btn-lg btn-primary"
       >
-        Monthly Employee Records
+        Record Slip Bulanan
       </Link>
     </div>
   </div>

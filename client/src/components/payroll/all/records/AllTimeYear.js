@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import Axios from "axios";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import Button from "../../../common/Button";
+import Spinner from "../../../common/Spinner";
 import TextFieldGroup from "../../../common/TextFieldGroup";
 import SearchBar from "../../../dashboard/SearchBar";
 import SideBar from "../../../dashboard/SideBar";
-import Spinner from "../../../common/Spinner";
-import { toast } from "react-toastify";
-import Button from "../../../common/Button";
-import Axios from "axios";
 import AllTimeYearTable from "./AllTimeYearTable";
 
 export default () => {
@@ -35,7 +35,7 @@ export default () => {
       .catch(err => {
         if (err.response.data.year) {
           setError(err.response.data.year);
-          setTimeout(function() {
+          setTimeout(function () {
             setError("");
           }, 5000);
           setLoading(false);
@@ -65,11 +65,11 @@ export default () => {
         <div className="main-content">
           <section className="section">
             <div className="section-header">
-              <h1>Payroll report</h1>
+              <h1>Laporan Payroll</h1>
             </div>
 
             <h4 className="text-center mt-4">
-              Search generated employee payslips by year
+              Cari Slip Berdasarkan Tahun
             </h4>
             <div>
               <div className="row justify-content-center">
@@ -77,9 +77,9 @@ export default () => {
                   <div className="card-body mt-4">
                     <form onSubmit={onSubmit}>
                       <TextFieldGroup
-                        label="Year"
+                        label="Tahun"
                         type="number"
-                        placeholder="Enter year"
+                        placeholder="Masukan Tahun"
                         name="year"
                         value={year}
                         error={error}
@@ -89,14 +89,14 @@ export default () => {
                         <Button
                           type="submit"
                           classnameItems="btn-info btn-lg"
-                          btnName="Get payslips"
+                          btnName="Cari Slip"
                         />
 
                         <Link
                           to="/payroll/all"
                           className="btn btn-lg btn-warning"
                         >
-                          Back
+                          Kembali
                         </Link>
                       </div>
                     </form>

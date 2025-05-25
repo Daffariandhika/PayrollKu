@@ -19,7 +19,7 @@ export class AllTimeMonthYearTable extends Component {
       let text = this.state.search.toLowerCase();
       document.querySelectorAll("#search-item").forEach(payslipRow => {
         const item = payslipRow.firstChild.textContent;
-        if (item.toLowerCase().indexOf(text) !== -1 ) {
+        if (item.toLowerCase().indexOf(text) !== -1) {
           payslipRow.style.display = "table-row";
         } else {
           payslipRow.style.display = "none";
@@ -30,7 +30,7 @@ export class AllTimeMonthYearTable extends Component {
 
   render() {
 
-    const {payroll} = this.props;
+    const { payroll } = this.props;
 
     const formatMoney = money => {
       let formatedValue = money
@@ -39,145 +39,115 @@ export class AllTimeMonthYearTable extends Component {
         .replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
       return formatedValue;
     };
-  
+
     let basicSum = 0;
     let grossSum = 0;
-    let cRSum = 0;
-    let pensionSum = 0;
-    let taxableIncomeSum = 0;
-    let taxPayableSum = 0;
-    let monthlyNetPaySum = 0;
-  
+    let netSum = 0;
+    let jhtSum = 0;
+    let jpSum = 0;
+    let ksSum = 0;
+    let jhtCompanySum = 0;
+    let jpCompanySum = 0;
+    let ksCompanySum = 0;
+    let taxSum = 0;
+    let jabatanSum = 0;
+    let deductionSum = 0;
+
     payroll.forEach(payslipItem => {
       basicSum += payslipItem.basic;
       grossSum += payslipItem.grossEarning;
-      cRSum += payslipItem.consolidationRelief;
-      pensionSum += payslipItem.pension;
-      taxableIncomeSum += payslipItem.taxableIncome;
-      taxPayableSum += payslipItem.tax;
-      monthlyNetPaySum += payslipItem.netPay;
+      netSum += payslipItem.netPay;
+      jhtSum += payslipItem.BPJS.JHT;
+      jpSum += payslipItem.BPJS.JP;
+      ksSum += payslipItem.BPJS.KS;
+      jhtCompanySum += payslipItem.BPJS_employer.JHT;
+      jpCompanySum += payslipItem.BPJS_employer.JP;
+      ksCompanySum += payslipItem.BPJS_employer.KS;
+      jabatanSum += payslipItem.biayaJabatan;
+      taxSum += payslipItem.tax;
+      deductionSum += payslipItem.totalDeductions;
     });
-  
+
     return (
       <div>
         <div className="row">
           <div className="col-md-12">
             <div className="card">
               <div className="live-search ml-4">
-                  <ReactHTMLTableToExcel
-                    id="test-table-xls-button"
-                    className="download-table-xls-button btn btn-lg btn-primary mt-4 mb-4"
-                    table="table-to-xls"
-                    filename={"All_employee_yearly_"+payroll[0].presentYear}
-                    sheet="Payroll with pension"
-                    buttonText="Download excel"
-                  />
-                  <TextFieldGroup
-                    type="text"
-                    name="search"
-                    label="Search payslip"
-                    placeholder="Employee name"
-                    value={this.state.search}
-                    onChange={this.onChange}
-                    tabindex="1"
-                    className="live-search"
-                  />
-                </div>
+                <ReactHTMLTableToExcel
+                  id="test-table-xls-button"
+                  className="download-table-xls-button btn btn-lg btn-primary mt-4 mb-4"
+                  table="table-to-xls"
+                  filename={"Record_Slip_Pegawai_Tahun_" + payroll[0].presentYear}
+                  sheet="Record_Slip_Pegawai_Tahunan"
+                  buttonText="Download Excel"
+                />
+                <TextFieldGroup
+                  type="text"
+                  name="search"
+                  label="Cari Slip"
+                  placeholder="Nama Pegawai"
+                  value={this.state.search}
+                  onChange={this.onChange}
+                  tabindex="1"
+                  className="live-search"
+                />
+              </div>
               <div className="card-body">
                 <div className="table-responsive">
                   <table className="table table-stripped" id="table-to-xls">
                     <thead>
                       <tr>
-                        <th>Name</th>
-                        <th>Basic Salary</th>
-                        <th>Gross</th>
-                        <th>Consolidation Relief</th>
-                        <th>Pension</th>
-                        <th>Taxable income</th>
-                        <th>Tax payable</th>
-                        <th>Monthly NetPay</th>
+                        <th>Nama</th>
+                        <th>Bulan</th>
+                        <th>Gaji Pokok</th>
+                        <th>Pendapatan Kotor</th>
+                        <th>BPJS Hari Tua</th>
+                        <th>BPJS Pensiun</th>
+                        <th>BPJS Kesehatan</th>
+                        <th>BPJS Hari Tua (Perusahaan)</th>
+                        <th>BPJS Pensiun (Perusahaan)</th>
+                        <th>BPJS Kesehatan (Perusahaan)</th>
+                        <th>Biaya Jabatan</th>
+                        <th>PPh</th>
+                        <th>Total Potongan</th>
+                        <th>Pendapatan Bersih</th>
                       </tr>
                     </thead>
                     <tbody>
                       {payroll.map(payslip => (
                         <tr key={payslip._id} id="search-item">
                           <td>{payslip.name}</td>
-                          <td>
-                            
-                            {formatMoney(payslip.basic)}
-                          </td>
-                          <td>
-                            
-                            {formatMoney(payslip.grossEarning)}
-                          </td>
-                          <td>
-                            
-                            {formatMoney(payslip.consolidationRelief)}
-                          </td>
-                          <td>
-                            
-                            {formatMoney(payslip.pension)}
-                          </td>
-                          <td>
-                            
-                            {formatMoney(payslip.taxableIncome)}
-                          </td>
-                          <td>
-                            
-                            {formatMoney(payslip.tax)}
-                          </td>
-                          <td>
-                            
-                            {formatMoney(payslip.netPay)}
-                          </td>
+                          <td>{payslip.presentMonth}</td>
+                          <td>{formatMoney(payslip.basic)}</td>
+                          <td>{formatMoney(payslip.grossEarning)}</td>
+                          <td>{formatMoney(payslip.BPJS.JHT)}</td>
+                          <td>{formatMoney(payslip.BPJS.JP)}</td>
+                          <td>{formatMoney(payslip.BPJS.KS)}</td>
+                          <td>{formatMoney(payslip.BPJS_employer.JHT)}</td>
+                          <td>{formatMoney(payslip.BPJS_employer.JP)}</td>
+                          <td>{formatMoney(payslip.BPJS_employer.KS)}</td>
+                          <td>{formatMoney(payslip.biayaJabatan)}</td>
+                          <td>{formatMoney(payslip.tax)}</td>
+                          <td>{formatMoney(payslip.totalDeductions)}</td>
+                          <td>{formatMoney(payslip.netPay)}</td>
                         </tr>
                       ))}
                       <tr>
-                        <td>
-                          <strong>Total Sum</strong>
-                        </td>
-                        <td>
-                          <strong>
-                            
-                            {formatMoney(basicSum)}
-                          </strong>
-                        </td>
-                        <td>
-                          <strong>
-                            
-                            {formatMoney(grossSum)}
-                          </strong>
-                        </td>
-                        <td>
-                          <strong>
-                            
-                            {formatMoney(cRSum)}
-                          </strong>
-                        </td>
-                        <td>
-                          <strong>
-                            
-                            {formatMoney(pensionSum)}
-                          </strong>
-                        </td>
-                        <td>
-                          <strong>
-                            
-                            {formatMoney(taxableIncomeSum)}
-                          </strong>
-                        </td>
-                        <td>
-                          <strong>
-                            
-                            {formatMoney(taxPayableSum)}
-                          </strong>
-                        </td>
-                        <td>
-                          <strong>
-                            
-                            {formatMoney(monthlyNetPaySum)}
-                          </strong>
-                        </td>
+                        <td><strong>Total</strong></td>
+                        <td><strong>---</strong></td>
+                        <td><strong>{formatMoney(basicSum)}</strong></td>
+                        <td><strong>{formatMoney(grossSum)}</strong></td>
+                        <td><strong>{formatMoney(jhtSum)}</strong></td>
+                        <td><strong>{formatMoney(jpSum)}</strong></td>
+                        <td><strong>{formatMoney(ksSum)}</strong></td>
+                        <td><strong>{formatMoney(jhtCompanySum)}</strong></td>
+                        <td><strong>{formatMoney(jpCompanySum)}</strong></td>
+                        <td><strong>{formatMoney(ksCompanySum)}</strong></td>
+                        <td><strong>{formatMoney(jabatanSum)}</strong></td>
+                        <td><strong>{formatMoney(taxSum)}</strong></td>
+                        <td><strong>{formatMoney(deductionSum)}</strong></td>
+                        <td><strong>{formatMoney(netSum)}</strong></td>
                       </tr>
                     </tbody>
                   </table>

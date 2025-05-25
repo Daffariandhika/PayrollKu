@@ -33,7 +33,7 @@ let presentYear = date.getFullYear();
 //@access Private
 router.get('/:id', protect, async (req, res) => {
   if (date.getDate() < 5) {
-    return res.status(400).json({ message: 'Salary report can only be generated after the 5th!' });
+    return res.status(400).json({ message: 'Laporan Slip Hanya Bisa Dibuat Sesudah Tanggal 5!' });
   }
   try {
     const employee = await Employee.findOne(
@@ -247,6 +247,8 @@ router.get('/:id', protect, async (req, res) => {
       department: employee.department,
       bankName: employee.bankName,
       accountNumber: employee.accountNumber,
+      bpjsKetenagakerjaanNumber: employee.bpjsKetenagakerjaanNumber,
+      bpjsKesehatanNumber: employee.bpjsKesehatanNumber,
       npwp: employee.npwp,
       level: employee.levelName,
       presentMonth,
@@ -282,7 +284,7 @@ router.post('/send/:id', protect, async (req, res) => {
     });
 
     if (!employeePayslip) {
-      return res.status(404).json({ message: 'Payslip not found' });
+      return res.status(404).json({ message: 'Slip Tidak Ditemukan' });
     }
 
     const formatMoney = (money) =>
@@ -294,7 +296,7 @@ router.post('/send/:id', protect, async (req, res) => {
       const mailData = {
         from: 'muhammaddaffariandhika@gmail.com',
         to: employeePayslip.email,
-        subject: 'Monthly Payslip',
+        subject: 'Slip Gaji Bulanan',
         html: emailTemplate(employeePayslip),
         attachments: [
           {
@@ -307,13 +309,13 @@ router.post('/send/:id', protect, async (req, res) => {
       };
 
       mailer.send(mailData)
-        .then(() => res.json({ message: 'Payslip successfully sent!' }))
-        .catch(err => res.status(400).json({ message: 'Error sending email', error: err.message }));
+        .then(() => res.json({ message: 'Slip Berhasil Dikirim!' }))
+        .catch(err => res.status(400).json({ message: 'Error Saat Mengirim Slip', error: err.message }));
     });
 
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Server error fetching payslip', error: err.message });
+    res.status(500).json({ message: 'Server Error', error: err.message });
   }
 });
 
@@ -323,11 +325,16 @@ router.post('/send/:id', protect, async (req, res) => {
 router.get('/record/allmonthlyslip', protect, (req, res) => {
   let basicSum = 0,
     grossSum = 0,
-    consolidationReliefSum = 0,
-    pensionSum = 0,
-    taxableIncomeSum = 0,
+    netSum = 0,
+    jhtSum = 0,
+    jpSum = 0,
+    ksSum = 0,
+    jhtCompanySum = 0,
+    jpCompanySum = 0,
+    ksCompanySum = 0,
     taxSum = 0,
-    netSum = 0;
+    jabatanSum = 0,
+    contributionSum = 0;
 
   Payslip.find({ is_delete: 0 })
     .where('presentMonth')
@@ -338,21 +345,31 @@ router.get('/record/allmonthlyslip', protect, (req, res) => {
       payslip.forEach((payslipItem) => {
         basicSum += payslipItem.basic;
         grossSum += payslipItem.grossEarning;
-        consolidationReliefSum += payslipItem.consolidationRelief;
-        pensionSum += payslipItem.pension;
-        taxableIncomeSum += payslipItem.taxableIncome;
-        taxSum += payslipItem.tax;
         netSum += payslipItem.netPay;
+        jhtSum += payslipItem.BPJS.JHT;
+        jpSum += payslipItem.BPJS.JP;
+        ksSum += payslipItem.BPJS.KS;
+        jhtCompanySum += payslipItem.BPJS_employer.JHT;
+        jpCompanySum += payslipItem.BPJS_employer.JP;
+        ksCompanySum += payslipItem.BPJS_employer.KS;
+        jabatanSum += payslipItem.biayaJabatan;
+        taxSum += payslipItem.tax;
+        contributionSum += payslipItem.totalBpjs
       });
 
       const payrollDetails = {
         basicSum,
         grossSum,
-        consolidationReliefSum,
-        pensionSum,
-        taxableIncomeSum,
-        taxSum,
         netSum,
+        jhtSum,
+        jpSum,
+        ksSum,
+        jhtCompanySum,
+        jpCompanySum,
+        ksCompanySum,
+        jabatanSum,
+        taxSum,
+        contributionSum,
         payslip,
       };
 
@@ -372,7 +389,7 @@ router.get('/record/employeeallslip/:id', protect, (req, res) => {
     .equals(presentYear)
     .then((payslip) => {
       if (!payslip) {
-        errors.employee = 'Please select an employee';
+        errors.employee = 'Mohon Pilih Pegawai';
         return res.status(400).json(errors);
       }
       res.json(payslip);
@@ -392,7 +409,7 @@ router.get('/record/allyear', protect, (req, res) => {
     .sort({ name: 1 })
     .then((payslips) => {
       if (!payslips) {
-        errors.payslips = 'Payslips not found';
+        errors.payslips = 'Slip Tidak Ditemukan';
         return res.status(404).json(errors);
       }
       res.json(payslips);
@@ -416,7 +433,7 @@ router.post('/record/singlemonthlyslip', protect, (req, res) => {
     .then((monthlySlip) => {
       if (!monthlySlip) {
         errors.monthlyslip =
-          "Payslip not found or hasn't been generated";
+          "Slip Tidak Ditemukan Atau Belum Dibuat";
         return res.status(404).json(errors);
       }
       res.json(monthlySlip);
@@ -441,7 +458,7 @@ router.post('/record/byemployeemonthyear', protect, (req, res) => {
     .equals(req.body.month)
     .then((payslipItem) => {
       if (!payslipItem) {
-        errors.payslip = "Payslip not found or hasn't been generated";
+        errors.payslip = "Slip Tidak Ditemukan Atau Belum Dibuat";
         return res.status(404).json(errors);
       }
       res.json(payslipItem);
@@ -467,7 +484,7 @@ router.post('/record/bymonthyear', protect, (req, res) => {
     .then((payslipItem) => {
       if (!payslipItem) {
         errors.payslips =
-          "Payslips not found or hasn't been generated";
+          "Slip Tidak Ditemukan Atau Belum Dibuat";
         return res.status(404).json(errors);
       }
       res.json(payslipItem);
@@ -486,7 +503,7 @@ router.post('/record/byyear', protect, (req, res) => {
     req.body.year === null ||
     req.body.year === ''
   ) {
-    errors.year = 'Year field is required';
+    errors.year = 'Field Tahun Harus di Isi';
     return res.status(400).json(errors);
   }
 
@@ -496,7 +513,7 @@ router.post('/record/byyear', protect, (req, res) => {
     .then((payslipItem) => {
       if (!payslipItem || Object.keys(payslipItem).length === 0) {
         errors.payslips =
-          "Payslips not found or hasn't been generated";
+          "Slip Tidak Ditemukan Atau Belum Dibuat";
         return res.status(404).json(errors);
       }
       res.json(payslipItem);

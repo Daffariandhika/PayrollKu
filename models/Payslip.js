@@ -110,6 +110,14 @@ const PayslipSchema = new Schema({
     type: String,
     required: true
   },
+  bpjsKetenagakerjaanNumber: {
+    type: String,
+    required: true
+  },
+  bpjsKesehatanNumber: {
+    type: String,
+    required: true
+  },
   npwp: {
     type: String,
     required: true

@@ -33,11 +33,11 @@ render() {
             <li><Link to="/employee/all" className="nav-link"><i className="fas fa-archive"></i> <span>Data Pegawai</span></Link></li>
 
             <li className="menu-header">Menu Laporan</li>
-            <li><Link to="/payroll/monthly" className="nav-link"><i className="fas fa-calendar-alt"></i> <span>Slip Pegawai</span></Link></li>
-            <li><Link to="/payroll/all" className="nav-link"><i className="fas fa-paperclip"></i> <span>Semua Laporan</span></Link></li>
+            <li><Link to="/payroll/monthly" className="nav-link"><i className="fas fa-calendar-alt"></i> <span>Slip</span></Link></li>
+            <li><Link to="/payroll/all" className="nav-link"><i className="fas fa-paperclip"></i> <span>Laporan</span></Link></li>
 
             <li className="menu-header">Menu Utilitas</li>
-            <li><Link to="/utilities/level" className="nav-link"><i className="fas fa-location-arrow"></i> <span>Jabatan Pegawai</span></Link></li>
+            <li><Link to="/utilities/level" className="nav-link"><i className="fas fa-location-arrow"></i> <span>Jabatan</span></Link></li>
             {auth.user.is_admin === 0 ? null : (<li><Link to="/utilities/exception" className="nav-link"><i className="fas fa-sign"></i> <span>Pengecualian</span></Link></li>) }
 
             <li className="menu-header">Menu Tambahan</li> 

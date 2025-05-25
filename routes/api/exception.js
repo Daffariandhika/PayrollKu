@@ -10,16 +10,16 @@ const Employee = require("../../models/Employee");
 //@desc View All Employee salary exception route
 //@access Private
 router.get("/", protect, (req, res) => {
-  Exception.find({is_delete: 0})
+  Exception.find({ is_delete: 0 })
     .then(exception => {
       if (!exception) {
-        errors.noexception = "There are no exceptions";
+        errors.noexception = "Pengecualian Tidak Ditemukan";
         return res.status(404).json(errors);
       }
       res.json(exception);
     })
     .catch(err =>
-      res.status(400).json({ message: "Error fetching exception" })
+      res.status(400).json({ message: "Error Saat Mencari Pengecualian" })
     );
 });
 
@@ -30,13 +30,13 @@ router.get("/:id", protect, (req, res) => {
   Exception.findOne({ employee: req.params.id })
     .then(exception => {
       if (!exception) {
-        errors.noexception = "Exception not found";
+        errors.noexception = "Pengecualian Tidak Ditemukan";
         return res.status(404).json(errors);
       }
       res.json(exception);
     })
     .catch(err =>
-      res.status(400).json({ message: "Error fetching exception" })
+      res.status(400).json({ message: "Error Saat Mencari Pengecualian" })
     );
 });
 
@@ -47,25 +47,25 @@ router.post("/", protect, (req, res) => {
   const errors = {};
 
   if (!req.body.amount && !req.body.employee) {
-    errors.amount = "Amount field cannot be empty";
-    errors.employee = "Please select an employee";
+    errors.amount = "Jumlah Harus di Isi";
+    errors.employee = "Mohon Pilih Pegawai";
     return res.status(400).json(errors);
   }
 
   if (!req.body.amount) {
-    errors.amount = "Amount field cannot be empty";
+    errors.amount = "Jumlah Harus di Isi";
     return res.status(400).json(errors);
   }
 
   if (!req.body.employee) {
-    errors.employee = "Please select an employee";
+    errors.employee = "Mohon Pilih Pegawai";
     return res.status(400).json(errors);
   }
 
   Exception.findOne({ employee: req.body.employee }).where('is_delete').equals(0)
     .then(employee => {
       if (employee) {
-        errors.exception = "Employee salary exception already exist!";
+        errors.exception = "Pengecualian Sudah Ada!";
         return res.status(400).json(errors);
       }
 
@@ -86,7 +86,7 @@ router.post("/", protect, (req, res) => {
               .catch(err =>
                 res
                   .status(400)
-                  .json({ message: "Error saving salary exception" })
+                  .json({ message: "Gagal Menyimpan Pengecualian" })
               );
           }
         })
@@ -105,17 +105,17 @@ router.post('/:id', protect, (req, res) => {
   };
 
   Exception.findOne({ _id: req.params.id }).where('is_delete').equals(0)
-        .then(exceptionItem => {
-            //Update
-            Exception.findOneAndUpdate(
-              { _id: req.params.id },
-              { $set: exceptionFields },
-              { new: true }
-            )
-            .then(() => res.json({ success: true }))
-            .catch(err => console.log(err))
-        })
-        .catch(err => res.status(404).json({message: "Error fetching individual exception record"}))
+    .then(exceptionItem => {
+      //Update
+      Exception.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: exceptionFields },
+        { new: true }
+      )
+        .then(() => res.json({ success: true }))
+        .catch(err => console.log(err))
+    })
+    .catch(err => res.status(404).json({ message: "Error fetching individual exception record" }))
 })
 
 //@route  Put api/exception/:id

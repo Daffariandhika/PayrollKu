@@ -35,7 +35,7 @@ const upload = multer({
         ]
       ) === -1
     ) {
-      return callback(new Error('Wrong extension type'));
+      return callback(new Error('Jenis File Tidak Sesuai'));
     }
     callback(null, true);
   },
@@ -50,7 +50,7 @@ router.post('/', protect, upload.single('file'), (req, res) => {
   importToDb(recordPath);
   fs.unlinkSync(recordPath);
   res.json({
-    msg: 'Employee record uploaded and successfully imported',
+    msg: 'Record Data Pegawai Berhasil Di Upload Dan Disimpan',
     file: req.file,
   });
 });
@@ -76,15 +76,18 @@ const importToDb = (filePath) => {
         },
         columnToKey: {
           A: 'name',
-          B: 'email',
-          C: 'designation',
-          D: 'department',
-          E: 'stateResidence',
-          F: 'bankName',
-          G: 'accountNumber',
-          H: 'pfaName',
-          I: 'pensionAccountNumber',
-          J: 'levelName',
+          B: 'gender',
+          C: 'status',
+          D: 'email',
+          E: 'designation',
+          F: 'department',
+          G: 'stateResidence',
+          H: 'bankName',
+          I: 'accountNumber',
+          J: 'bpjsKetenagakerjaanNumber',
+          K: 'bpjsKesehatanNumber',
+          L: 'npwp',
+          M: 'levelName'
         },
       },
     ],
@@ -92,6 +95,8 @@ const importToDb = (filePath) => {
 
   excelData.Employees.forEach((employee) => {
     let name = employee.name;
+    let gender = employee.gender
+    let status = employee.status;
     let email = employee.email;
     let designation = employee.designation;
     let department = employee.department;
@@ -99,8 +104,9 @@ const importToDb = (filePath) => {
     let bankName = employee.bankName;
     bankName = bankName.toUpperCase();
     let accountNumber = employee.accountNumber;
-    let pfaName = employee.pfaName;
-    let pensionAccountNumber = employee.pensionAccountNumber;
+    let bpjsKetenagakerjaanNumber = employee.bpjsKetenagakerjaanNumber;
+    let bpjsKesehatanNumber = employee.bpjsKesehatanNumber;
+    let npwp = employee.npwp;
     let levelName = employee.levelName;
     let fTag =
       Math.random().toString(9).substring(2, 7) +
@@ -120,6 +126,8 @@ const importToDb = (filePath) => {
                 const newEmployee = new Employee({
                   tag,
                   name,
+                  gender,
+                  status,
                   email,
                   designation,
                   department,
@@ -127,8 +135,9 @@ const importToDb = (filePath) => {
                   stateResidence,
                   bankName,
                   accountNumber,
-                  pfaName,
-                  pensionAccountNumber,
+                  bpjsKetenagakerjaanNumber,
+                  bpjsKesehatanNumber,
+                  npwp,
                   levelName,
                 });
                 newEmployee
