@@ -14,7 +14,7 @@ const ExceptionTab = () => {
             aria-controls="addexception"
             aria-selected="true"
           >
-            Add basic salary exception
+            Pengecualian Gaji Pokok
           </a>
         </li>
         <li className="nav-item">
@@ -27,7 +27,7 @@ const ExceptionTab = () => {
             aria-controls="viewexception"
             aria-selected="false"
           >
-            View basic salary exceptions
+            Lihat Pengecualian
           </a>
         </li>
         <div className="dropdown-divider" />
@@ -41,7 +41,7 @@ const ExceptionTab = () => {
             aria-controls="addindividual"
             aria-selected="false"
           >
-            Add other exceptions
+            Pengecualian Lain
           </a>
         </li>
         <li className="nav-item">
@@ -54,7 +54,7 @@ const ExceptionTab = () => {
             aria-controls="viewindividual"
             aria-selected="false"
           >
-            View other exceptions
+            Lihat Pengecualian
           </a>
         </li>
         <div className="dropdown-divider" />
@@ -68,7 +68,7 @@ const ExceptionTab = () => {
             aria-controls="addoneoff"
             aria-selected="false"
           >
-            Add Oneoff exceptions
+            Tambahkan One Off
           </a>
         </li>
         <li className="nav-item">
@@ -81,7 +81,7 @@ const ExceptionTab = () => {
             aria-controls="viewoneoff"
             aria-selected="false"
           >
-            View Oneoff exceptions
+            Lihat One Off
           </a>
         </li>
       </ul>
