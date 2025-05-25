@@ -6,7 +6,7 @@ import Pagination from '../common/Pagination';
 
 class MonthlySalaryTable extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -18,12 +18,12 @@ class MonthlySalaryTable extends Component {
     this.onChange = this.onChange.bind(this)
   }
 
-  onChange(e){
+  onChange(e) {
     this.setState({ [e.target.name]: e.target.value }, () => {
       let text = this.state.search.toLowerCase()
       document.querySelectorAll('#search-item').forEach(table => {
         const item = table.firstChild.textContent;
-        if(item.toLowerCase().indexOf(text) !== -1){
+        if (item.toLowerCase().indexOf(text) !== -1) {
           table.style.display = 'table-row'
         } else {
           table.style.display = 'none';
@@ -55,6 +55,7 @@ class MonthlySalaryTable extends Component {
 
     let employeeDetails = currentEmployee.map(employee => (
       <tr key={employee._id} id="search-item">
+        <td>{employee.tag}</td>
         <td>{employee.name}</td>
         <td>{employee.levelName}</td>
         <td>{employee.department}</td>
@@ -64,7 +65,7 @@ class MonthlySalaryTable extends Component {
             to={`/payroll/monthly/viewslip/${employee._id}`}
             className="btn btn-info btn-sm"
           >
-            View 
+            Lihat Slip
           </Link>
         </td>
       </tr>
@@ -75,7 +76,7 @@ class MonthlySalaryTable extends Component {
         <div className="col-12">
           <div className="card">
             <div className="card-header">
-              <h4 className="text-center">View to generate/export individual employee payslip</h4>
+              <h4 className="text-center">Lihat Atau Buat Slip</h4>
             </div>
             <div className="card-body">
               <div className="row">
@@ -83,8 +84,8 @@ class MonthlySalaryTable extends Component {
                   <TextFieldGroup
                     type="text"
                     name="search"
-                    label="Search payslip"
-                    placeholder="Employee tag or name"
+                    label="Cari Slip"
+                    placeholder="ID atau Nama Pekerja"
                     value={this.state.search}
                     onChange={this.onChange}
                     tabindex="1"
@@ -93,8 +94,8 @@ class MonthlySalaryTable extends Component {
                 </div>
                 <div className="col-md-2">
                   <SelectListGroup
-                    label="Record per page"
-                    placeholder="Select record per page"
+                    label="Jumlah Tabel"
+                    placeholder="Jumlah Tabel"
                     name="employeePerPage"
                     value={this.state.employeePerPage}
                     onChange={this.onChange}
@@ -106,11 +107,12 @@ class MonthlySalaryTable extends Component {
                 <table className="table table-stripped">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Level</th>
-                      <th>Department</th>
-                      <th>Designation</th>
-                      <th>Action</th>
+                      <th>ID</th>
+                      <th>Nama</th>
+                      <th>Jabatan</th>
+                      <th>Departmen</th>
+                      <th>Posisi</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>{employeeDetails}</tbody>

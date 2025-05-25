@@ -33,7 +33,7 @@ render() {
             <li><Link to="/employee/all" className="nav-link"><i className="fas fa-archive"></i> <span>Data Pegawai</span></Link></li>
 
             <li className="menu-header">Menu Laporan</li>
-            <li><Link to="/payroll/monthly" className="nav-link"><i className="fas fa-calendar-alt"></i> <span>Laporan Bulanan</span></Link></li>
+            <li><Link to="/payroll/monthly" className="nav-link"><i className="fas fa-calendar-alt"></i> <span>Slip Pegawai</span></Link></li>
             <li><Link to="/payroll/all" className="nav-link"><i className="fas fa-paperclip"></i> <span>Semua Laporan</span></Link></li>
 
             <li className="menu-header">Menu Utilitas</li>

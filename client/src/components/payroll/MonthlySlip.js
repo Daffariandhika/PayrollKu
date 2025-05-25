@@ -38,25 +38,25 @@ class MonthlySlip extends PureComponent {
   };
 
   sendEmail(e) {
-    
+
     let loadingBtn = document.querySelector('.sendE');
     let loadingComp = document.createElement("i")
     loadingComp.classList = "fas fa-circle-notch fa-spin"
-    loadingBtn.innerHTML = "Sending "
+    loadingBtn.innerHTML = "Mengirim "
     loadingBtn.appendChild(loadingComp)
     loadingBtn.disabled = true;
 
     axios
       .post(`/api/payslip/send/${this.props.match.params.id}`)
       .then(res => {
-        toast.success("Employee payslip successfully sent!");
+        toast.success("Slip Berhasil Dikirim!");
         loadingBtn.disabled = false;
-        loadingBtn.innerHTML = "Send to employee";
+        loadingBtn.innerHTML = "Kirim Slip";
       })
       .catch(err => {
-        toast.error("Error sending email, resend");
+        toast.error("Error Saat Mengirim, Coba Lagi");
         loadingBtn.disabled = false;
-        loadingBtn.innerHTML = "Send to employee";
+        loadingBtn.innerHTML = "Kirim Slip";
       });
   }
 
@@ -73,6 +73,7 @@ class MonthlySlip extends PureComponent {
           <div>
             <PDFExport
               paperSize={"Letter"}
+              margin="1cm"
               fileName={payroll.employeeDetails.name + " payslip"}
               title={payroll.employeeDetails.name + " payslip"}
               subject=""
@@ -83,8 +84,8 @@ class MonthlySlip extends PureComponent {
                 payroll={payroll}
                 ref={el => (this.componentRef = el)}
                 style={{
-                  height: 792,
-                  width: 612,
+                  height: 'auto',
+                  width: '100%',
                   padding: "none",
                   backgroundColor: "white",
                   boxShadow: "5px 5px 5px black",
@@ -98,7 +99,7 @@ class MonthlySlip extends PureComponent {
               <ReactToPrint
                 trigger={() => (
                   <Link to="#" className="btn btn-lg btn-info">
-                    Print payslip
+                    Print Slip
                   </Link>
                 )}
                 content={() => this.componentRef}
@@ -108,23 +109,23 @@ class MonthlySlip extends PureComponent {
                 className="btn btn-lg btn-success ml-3"
                 onClick={this.exportPDF}
               >
-                Download payslip Pdf
+                Download Slip Pdf
               </button>
 
               <button
                 className="btn btn-lg btn-primary ml-3 sendE"
                 onClick={this.sendEmail}
               >
-                Send to employee
+                Kirim Slip
               </button>
               <Link to="/payroll/monthly" className="btn btn-lg btn-warning ml-3">
-                Back
+                Kembali
               </Link>
             </div>
           </div>
         );
       } else {
-        payslipTable = <h4>No previous employee entries!</h4>;
+        payslipTable = <h4>Data Pegawai Tidak Ditemukan!</h4>;
       }
     }
 
@@ -137,7 +138,7 @@ class MonthlySlip extends PureComponent {
           <div className="main-content">
             <section className="section">
               <div className="section-header">
-                <h1>Employee monthly payslip</h1>
+                <h1>Slip Bulanan Pegawai</h1>
               </div>
               {payslipTable}
             </section>
