@@ -92,14 +92,13 @@ class Level extends Component {
           <div className="main-content">
             <section className="section">
               <div className="section-header">
-                <h1>Employee Level Section</h1>
+                <h1>Jabatan</h1>
               </div>
               <div className="col-12">
                 <div className="card">
                   <div className="card-header">
                     <h4>
-                      From the dropdown navs, you can attach a bonus or a
-                      deductible to a level
+                      Anda Bisa Menambahkan Bonus atau Potongan pada masing-masing jabatan
                     </h4>
                   </div>
                   <div className="card-body">

@@ -14,7 +14,7 @@ const LevelTab = () => {
             aria-controls="home"
             aria-selected="true"
           >
-            Add level
+            Tambahkan Jabatan
           </a>
         </li>
         <li className="nav-item">
@@ -27,7 +27,7 @@ const LevelTab = () => {
             aria-controls="viewlevel"
             aria-selected="false"
           >
-            View levels
+            Lihat Jabatan
           </a>
         </li>
         <div className="dropdown-divider" />
@@ -41,7 +41,7 @@ const LevelTab = () => {
             aria-controls="addbonus"
             aria-selected="false"
           >
-            Add bonus
+            Tambahkan Bonus
           </a>
         </li>
         <li className="nav-item">
@@ -54,7 +54,7 @@ const LevelTab = () => {
             aria-controls="viewbonus"
             aria-selected="false"
           >
-            View bonuses
+            lihat Bonus
           </a>
         </li>
         <div className="dropdown-divider" />
@@ -68,7 +68,7 @@ const LevelTab = () => {
             aria-controls="deductable"
             aria-selected="false"
           >
-            Add Deduction
+            Tambahkan Potongan
           </a>
         </li>
         <li className="nav-item">
@@ -81,7 +81,7 @@ const LevelTab = () => {
             aria-controls="viewdeductable"
             aria-selected="false"
           >
-            View Deductions
+            Lihat Potongan
           </a>
         </li>
       </ul>
