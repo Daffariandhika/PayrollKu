@@ -8,24 +8,24 @@ import { deleteException } from "../../actions/exceptionActions";
 class ViewException extends Component {
   onDelete(id) {
     confirmAlert({
-      title: "Delete this exception ?",
-      message: "Are you sure to do this",
+      title: "Hapus Pengecualian ?",
+      message: "Apakah Sudah Yakin",
       buttons: [
         {
-          label: "Yes delete exception!",
+          label: "Ya, Hapus!",
           onClick: () => {
             this.props
               .deleteException(id)
               .then(res => {
                 if (res.type === "DELETE_EXCEPTION") {
-                  toast.success("Exception Deleted!");
+                  toast.success("Pengecualian dihapus!");
                 }
               })
               .catch(err => console.log(err));
           }
         },
         {
-          label: "No cancel delete!",
+          label: "Tidak, Kembali!",
           onClick: () => {}
         }
       ]
@@ -53,10 +53,10 @@ class ViewException extends Component {
         className="col-md-4 mx-auto card card-primary mt-2 bg-light"
       >
         <p className="mt-2">
-          <strong>Employee name</strong>: {exceptionItem.name}
+          <strong>Nama Pegawai</strong>: {exceptionItem.name}
         </p>
         <p className="mt-2">
-          <strong>Amount</strong> : {" "}
+          <strong>Jumlah</strong> : {" "}
           {formatMoney(exceptionItem.amount)}
         </p>
         <div className="text-center">
@@ -64,7 +64,7 @@ class ViewException extends Component {
             className="btn btn-sm btn-danger"
             onClick={this.onDelete.bind(this, exceptionItem._id)}
           >
-            Delete
+            Hapus
           </button>
         </div>
         <hr />

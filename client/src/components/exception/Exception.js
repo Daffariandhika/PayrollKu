@@ -96,13 +96,13 @@ class Exception extends Component {
           <div className="main-content">
             <section className="section">
               <div className="section-header">
-                <h1>Salary Exception Section</h1>
+                <h1>Pengecualian</h1>
               </div>
               <div className="col-12">
                 <div className="card">
                   <div className="card-header">
                     <h4>
-                      From the sidebar navigation links, you can attach an exception to an employee profile
+                      Anda Bisa Menambahkan Pengecualian Pendapatan atau Pengurangan Pada Pegawai
                     </h4>
                   </div>
                   <div className="card-body">

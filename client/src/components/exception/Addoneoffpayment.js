@@ -48,7 +48,7 @@ class Addoneoffpayment extends Component {
       .addOneOffPayment(exceptionDetails)
       .then(res => {
         if (res.type === "ADD_ONE_OFF_PAYMENT") {
-          toast.success("One off payment successfully added!");
+          toast.success("One Off Berhasil ditambahkan!");
           this.setState({
             name: "",
             amount: "",
@@ -81,7 +81,7 @@ class Addoneoffpayment extends Component {
         <TextFieldGroup
           type="text"
           label="Name"
-          placeholder="Enter oneoff name"
+          placeholder="Masukan Nama One Off"
           name="name"
           value={this.state.name}
           error={errors.name}
@@ -91,19 +91,19 @@ class Addoneoffpayment extends Component {
 
         <TextFieldGroup
           type="number"
-          label="Amount"
-          placeholder="Enter amount"
+          label="Jumlah"
+          placeholder="Masukan Jumlah"
           name="amount"
           value={this.state.amount}
           error={errors.amount}
           onChange={this.onChange}
           tabindex="1"
-          info="Enter value without comma"
+          info="Tidak Perlu Koma Atau Titik"
         />
 
         <SelectListGroup
-          label="Employee"
-          placeholder="Select employee"
+          label="Pilih Pegawai"
+          placeholder="Pilih Pegawai"
           name="employee"
           value={this.state.employee}
           onChange={this.onChange}
@@ -112,7 +112,7 @@ class Addoneoffpayment extends Component {
         />
 
         <SelectListGroup
-          label="Cost Type"
+          label="Jenis One Off"
           name="costType"
           value={this.state.costType}
           onChange={this.onChange}
@@ -121,7 +121,7 @@ class Addoneoffpayment extends Component {
         />
 
         <SelectListGroup
-          label="Month of payment"
+          label="Dilakukan Bulan"
           name="month"
           value={this.state.month}
           onChange={this.onChange}
@@ -130,7 +130,7 @@ class Addoneoffpayment extends Component {
         />
 
         <div className="text-center">
-          <Button type="submit" classnameItems="btn-primary btn-lg" btnName="Add Exception" />
+          <Button type="submit" classnameItems="btn-primary btn-lg" btnName="Submit" />
         </div>
       </form>
     );
@@ -140,11 +140,11 @@ class Addoneoffpayment extends Component {
         <div className="col-md-10">
           <div className="card-header">
             <h4 className="justify-content-center text-danger">
-              *All fields are required
+              *Semua Field Harus di Isi
             </h4>
           </div>
           <div className="card-body">
-            <p className="text-warning">*Added one off payments are automatically disabled in the system after a year</p>
+            <p className="text-warning">*One Off Akan dihapus Secara Otomatis Setelah 1 tahun</p>
             {exceptionFormContainer}
             </div>
         </div>

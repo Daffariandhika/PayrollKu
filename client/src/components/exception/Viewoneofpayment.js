@@ -8,24 +8,24 @@ import { deleteOneOffPayment } from "../../actions/exceptionActions";
 class ViewOtherException extends Component {
   onDelete(id) {
     confirmAlert({
-      title: "Delete this oneoff payment ?",
-      message: "Are you sure to do this",
+      title: "Hapus One Off ?",
+      message: "Apakah Sudah Yakin",
       buttons: [
         {
-          label: "Yes delete!",
+          label: "Ya, Hapus!",
           onClick: () => {
             this.props
               .deleteOneOffPayment(id)
               .then(res => {
                 if (res.type === "DELETE_ONE_OFF_PAYMENT") {
-                  toast.success("Oneoff payment exception Deleted!");
+                  toast.success("One Off dihapus!");
                 }
               })
               .catch(err => console.log(err));
           }
         },
         {
-          label: "No cancel delete!",
+          label: "Tidak, Kembali!",
           onClick: () => {}
         }
       ]
@@ -45,7 +45,7 @@ class ViewOtherException extends Component {
     let exceptionContainer;
 
     if (Object.keys(oneoffpayment).length === 0)
-      return (exceptionContainer = <h4>There are no data in the system</h4>);
+      return (exceptionContainer = <h4>One Off Tidak Ditemuakan di Sitem</h4>);
 
     exceptionContainer = oneoffpayment.map(oneoffpaymmentItem => (
       <div
@@ -53,28 +53,28 @@ class ViewOtherException extends Component {
         className="col-md-4 mx-auto card card-primary mt-2 bg-light"
       >
         <p className="mt-2">
-          <strong>One off payment name</strong>: {oneoffpaymmentItem.name}
+          <strong>Nama</strong>: {oneoffpaymmentItem.name}
         </p>
         <p className="mt-2">
-          <strong>Employee name</strong>: {oneoffpaymmentItem.employeeName}
+          <strong>Nama Pegawai</strong>: {oneoffpaymmentItem.employeeName}
         </p>
         <p className="mt-2">
-          <strong>Exception type</strong>:{" "}
+          <strong>Jenis</strong>:{" "}
           {oneoffpaymmentItem.costType === "income" ? "Income" : "Deduction"}
         </p>
         <p className="mt-2">
-          <strong>Amount</strong> : {" "}
+          <strong>Jumlah</strong> : {" "}
           {formatMoney(oneoffpaymmentItem.amount)}
         </p>
         <p className="mt-2">
-          <strong>Month of payment</strong> : {oneoffpaymmentItem.month}
+          <strong>Dilakukan Bulan</strong> : {oneoffpaymmentItem.month}
         </p>
         <div className="text-center mb-3">
           <button
             className="btn btn-sm btn-danger"
             onClick={this.onDelete.bind(this, oneoffpaymmentItem._id)}
           >
-            Delete
+            Hapus
           </button>
         </div>
       </div>

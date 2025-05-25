@@ -45,7 +45,7 @@ class AddOtherExceptionForm extends Component {
       .addOtherException(exceptionDetails)
       .then(res => {
         if (res.type === "ADD_OTHER_EXCEPTION") {
-          toast.success("Other exception successfully added!");
+          toast.success("Pengecualian Berhasil ditambahkan!");
           this.setState({
             name: "",
             amount: "",
@@ -77,8 +77,8 @@ class AddOtherExceptionForm extends Component {
 
         <TextFieldGroup
           type="text"
-          label="Name"
-          placeholder="Enter exception name"
+          label="Nama"
+          placeholder="Masukan Nama"
           name="name"
           value={this.state.name}
           error={errors.name}
@@ -88,19 +88,19 @@ class AddOtherExceptionForm extends Component {
 
         <TextFieldGroup
           type="number"
-          label="Amount"
-          placeholder="Enter amount"
+          label="Jumlah"
+          placeholder="Masukan Jumlah"
           name="amount"
           value={this.state.amount}
           error={errors.amount}
           onChange={this.onChange}
           tabindex="1"
-          info="Enter value without comma"
+          info="Tidak Perlu Koma atau Titik"
         />
 
         <SelectListGroup
-          label="Employee"
-          placeholder="Select employee"
+          label="Pilih Pegawai"
+          placeholder="Pilih Pegawai"
           name="employee"
           value={this.state.employee}
           onChange={this.onChange}
@@ -109,7 +109,7 @@ class AddOtherExceptionForm extends Component {
         />
 
         <SelectListGroup
-          label="Cost Type"
+          label="Jenis Pengecualian"
           name="costType"
           value={this.state.costType}
           onChange={this.onChange}
@@ -118,7 +118,7 @@ class AddOtherExceptionForm extends Component {
         />
 
         <div className="text-center">
-          <Button type="submit" classnameItems="btn-primary btn-lg" btnName="Add Exception"/>
+          <Button type="submit" classnameItems="btn-primary btn-lg" btnName="Submit"/>
         </div>
       </form>
     );
@@ -128,7 +128,7 @@ class AddOtherExceptionForm extends Component {
         <div className="col-md-10">
           <div className="card-header">
             <h4 className="justify-content-center text-danger">
-              *All fields are required
+              *Semua Field Harus di Isi
             </h4>
           </div>
           <div className="card-body">{exceptionFormContainer}</div>

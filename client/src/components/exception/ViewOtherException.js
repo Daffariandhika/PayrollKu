@@ -8,24 +8,24 @@ import { deleteOtherException } from "../../actions/exceptionActions";
 class ViewOtherException extends Component {
   onDelete(id) {
     confirmAlert({
-      title: "Delete this exception ?",
-      message: "Are you sure to do this",
+      title: "Hapus Pengecualian ?",
+      message: "Apakah Sudah Yakin",
       buttons: [
         {
-          label: "Yes delete exception!",
+          label: "Ya, Hapus!",
           onClick: () => {
             this.props
               .deleteOtherException(id)
               .then(res => {
                 if (res.type === "DELETE_OTHER_EXCEPTION") {
-                  toast.success("Exception Deleted!");
+                  toast.success("Pengecualian dihapus!");
                 }
               })
               .catch(err => console.log(err));
           }
         },
         {
-          label: "No cancel delete!",
+          label: "Tidak, Kembali!",
           onClick: () => {}
         }
       ]
@@ -45,7 +45,7 @@ class ViewOtherException extends Component {
     let exceptionContainer;
 
     if (Object.keys(otherexception).length === 0)
-      return (exceptionContainer = <h4>There's no data in the system</h4>);
+      return (exceptionContainer = <h4>Tidak Ada Pengecualian Pada Sistem</h4>);
 
     exceptionContainer = otherexception.map(exceptionItem => (
       <div
@@ -53,17 +53,17 @@ class ViewOtherException extends Component {
         className="col-md-4 mx-auto card card-primary mt-2 bg-light"
       >
         <p className="mt-2">
-          <strong>Exception name</strong>: {exceptionItem.name}
+          <strong>Nama</strong>: {exceptionItem.name}
         </p>
         <p className="mt-2">
-          <strong>Employee name</strong>: {exceptionItem.employeeName}
+          <strong>Nama Pegawai</strong>: {exceptionItem.employeeName}
         </p>
         <p className="mt-2">
-          <strong>Exception type</strong>:{" "}
+          <strong>Jenis</strong>:{" "}
           {exceptionItem.costType === "income" ? "Income" : "Deduction"}
         </p>
         <p className="mt-2">
-          <strong>Amount</strong> : {" "}
+          <strong>Jumlah</strong> : {" "}
           {formatMoney(exceptionItem.amount)}
         </p>
         <div className="text-center mb-3">
@@ -71,7 +71,7 @@ class ViewOtherException extends Component {
             className="btn btn-sm btn-danger"
             onClick={this.onDelete.bind(this, exceptionItem._id)}
           >
-            Delete
+            Hapus
           </button>
         </div>
       </div>
