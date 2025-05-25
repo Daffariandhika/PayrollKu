@@ -5,14 +5,16 @@ class PayslipTable extends PureComponent {
   render() {
     const { payroll } = this.props;
 
+    let extraIndividualEarning = [];
+    let extraIndividualDeduction = [];
     let extraEarning = [];
     let extraDeduction = [];
 
     payroll.individualcost.forEach((individualcostItem) => {
       if (individualcostItem.costType === 'income') {
-        extraEarning.push(individualcostItem);
+        extraIndividualEarning.push(individualcostItem);
       } else {
-        extraDeduction.push(individualcostItem);
+        extraIndividualDeduction.push(individualcostItem);
       }
     });
 
@@ -32,267 +34,250 @@ class PayslipTable extends PureComponent {
       return formatedValue;
     };
 
-    const date = new Date();
+    const formatField = (field) => field || '-';
 
     return (
       <div className="row">
         <div className="col-12">
           <div className="card">
-            <table className="table table-striped" border="2">
-              <tbody>
-                <tr>
-                  <td colSpan="2" className="text-center">
-                    <strong>PaySlip</strong>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Employee Name:{' '}
-                    <strong className="ml-2">
-                      {payroll.employeeDetails.name}
-                    </strong>
-                  </td>
-                  <td>
-                    Tax Year:{' '}
-                    <strong className="ml-5">
-                      {date.getFullYear()}
-                    </strong>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Employee Tag:{' '}
-                    <strong className="ml-5">
-                      {payroll.employeeDetails.tag}
-                    </strong>
-                  </td>
-                  <td>
-                    Pay Period:{' '}
-                    <strong className="ml-5">
-                      {date.toLocaleString('en-us', {
-                        month: 'long',
-                      })}
-                    </strong>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Designation:{' '}
-                    <strong className="ml-5">
-                      {payroll.employeeDetails.designation}
-                    </strong>
-                  </td>
-                  <td>
-                    Department:{' '}
-                    <strong className="ml-5">
-                      {payroll.employeeDetails.department}
-                    </strong>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <table className="table table-hover">
+
+            {/* HEADER */}
+            <div className="slip-main-container">
+              <div className="slip-header-main">
+                <h1>PayrollKu.app</h1>
+                <h3>SLIP GAJI</h3>
+              </div>
+
+              {/* EMPLOYEE INFO */}
+              <table className="slip-employee-table">
+                <tbody>
+                  {[
+                    ['Nama', payroll.employeeDetails.name, 'Departemen', payroll.employeeDetails.department],
+                    ['ID', payroll.employeeDetails.tag, 'Posisi', payroll.employeeDetails.designation],
+                    ['NPWP', formatField(payroll.employeeDetails.npwp), 'Jabatan', formatField(payroll.employeeDetails.levelName)],
+                    ['Status', formatField(payroll.employeeDetails.status), 'Periode', `${payroll.presentMonth} ${payroll.presentYear}`]
+                  ].map((row, idx) => (
+                    <tr key={idx}>
+                      <td>{row[0]}</td>
+                      <td>:</td>
+                      <td>{row[1]}</td>
+                      <td>{row[2]}</td>
+                      <td>:</td>
+                      <td>{row[3]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <div className='slip-container'>
+                <div className='slip-left-section'>
+                  {/*Income*/}
+                  <section className='slip-section'>
+                    <h4 className='income-title'>PENDAPATAN</h4>
+                    <table className='slip-table'>
                       <tbody>
-                        <tr>
-                          <th>Earnings</th>
-                          <th>Amount</th>
+                        {/*basic*/}
+                        <tr className='income-table'>
+                          <td>Gaji Pokok</td>
+                          <td className='text-right'>{formatMoney(payroll.basic)}</td>
                         </tr>
-                        <tr>
-                          <td>
-                            <strong>Basic pay</strong>
-                          </td>
-                          <td>
-                            <strong>
-                              <span>Rp</span>{' '}
-                              {formatMoney(payroll.basic)}
-                            </strong>
-                          </td>
-                        </tr>
-                        {payroll.level.bonuses.map((bonus) => (
-                          <tr key={bonus._id}>
-                            <td>
-                              <strong>{bonus.name}</strong>
-                            </td>
-                            <td>
-                              <strong>
-                                <span>Rp</span>{' '}
-                                {formatMoney(bonus.amount)}
-                              </strong>
-                            </td>
-                          </tr>
-                        ))}
-                        {extraEarning.map((extraEarningItem) => (
-                          <tr key={extraEarningItem._id}>
-                            <td>
-                              <strong>{extraEarningItem.name}</strong>
-                            </td>
-                            <td>
-                              <strong>
-                                <span>Rp</span>{' '}
-                                {formatMoney(extraEarningItem.amount)}
-                              </strong>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </td>
-                  <td>
-                    <table className="table table-hover">
-                      <thead />
-                      <tbody>
-                        <tr>
-                          <th>Deductions</th>
-                          <th>Amount</th>
-                        </tr>
-                        <tr>
-                          <td>
-                            <strong>BPJS TK JHT</strong>
-                          </td>
-                          <td className="text-danger">
-                            <strong>
-                              <span>Rp</span>{' '}
-                              {formatMoney(payroll.BPJS.JHT)}
-                            </strong>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <strong>BPJS TK JP</strong>
-                          </td>
-                          <td className="text-danger">
-                            <strong>
-                              <span>Rp</span>{' '}
-                              {formatMoney(payroll.BPJS.JP)}
-                            </strong>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <strong>BPJS Kesehatan</strong>
-                          </td>
-                          <td className="text-danger">
-                            <strong>
-                              <span>Rp</span>{' '}
-                              {formatMoney(payroll.BPJS.KS)}
-                            </strong>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <strong>BiayaJabatan</strong>
-                          </td>
-                          <td className="text-danger">
-                            <strong>
-                              <span>Rp</span>{' '}
-                              {formatMoney(payroll.biayaJabatan)}
-                            </strong>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <strong>Tax</strong>
-                          </td>
-                          <td className="text-danger">
-                            <strong>
-                              <span>Rp</span>{' '}
-                              {formatMoney(payroll.tax)}
-                            </strong>
-                          </td>
-                        </tr>
-                        {payroll.level.deductables.map(
-                          (deductable) => (
-                            <tr key={deductable._id}>
-                              <td>
-                                <strong>{deductable.name}</strong>
-                              </td>
-                              <td>
-                                <strong className="text-danger">
-                                  <span>Rp</span>{' '}
-                                  {formatMoney(deductable.amount)}
-                                </strong>
-                              </td>
+                        {/*level*/}
+                        {payroll.level.bonuses?.length > 0 && (
+                          <>
+                            <tr className='income-sub'>
+                              <td colSpan={2} className='p-1'>Tunjangan Divisi</td>
                             </tr>
-                          )
+                            {payroll.level.bonuses.map((bonus) => (
+                              <tr key={bonus._id} className='income-table'>
+                                <td>{bonus.name}</td>
+                                <td className='text-right'>{formatMoney(bonus.amount)}</td>
+                              </tr>
+                            ))}
+                          </>
                         )}
-                        {extraDeduction.map((extraDeductionItem) => (
-                          <tr key={extraDeductionItem._id}>
-                            <td>
-                              <strong>
-                                {extraDeductionItem.name}
-                              </strong>
-                            </td>
-                            <td>
-                              <strong className="text-danger">
-                                <span>Rp</span>{' '}
-                                {formatMoney(
-                                  extraDeductionItem.amount
-                                )}
-                              </strong>
-                            </td>
+                        {/*individual*/}
+                        {extraIndividualEarning?.length > 0 && (
+                          <>
+                            <tr className='income-sub'>
+                              <td colSpan={2} className='p-1'>Tunjangan Personal</td>
+                            </tr>
+                            {extraIndividualEarning.map((extraIndividualItem) => (
+                              <tr key={extraIndividualItem._id} className='income-table'>
+                                <td>{extraIndividualItem.name}</td>
+                                <td className='text-right'>{formatMoney(extraIndividualItem.amount)}</td>
+                              </tr>
+                            ))}
+                          </>
+                        )}
+                        {/*One off*/}
+                        {extraEarning?.length > 0 && (
+                          <>
+                            <tr className='income-sub'>
+                              <td colSpan={2} className='p-1'>Tunjangan Sekali</td>
+                            </tr>
+                            {extraEarning.map((item) => (
+                              <tr key={item._id} className='income-table'>
+                                <td>{item.name}</td>
+                                <td className='text-right'>{formatMoney(item.amount)}</td>
+                              </tr>
+                            ))}
+                          </>
+                        )}
+                      </tbody>
+                    </table>
+                  </section>
+
+                  {/* Contributions */}
+                  <section className='slip-section'>
+                    <h4 className='contribution-title'>
+                      KONTRIBUSI
+                    </h4>
+                    <table className='slip-table'>
+                      <tbody>
+                        <tr className='contribution-table'>
+                          <td>BPJS JHT (3.7%)</td>
+                          <td className='text-right'>{formatMoney(payroll.BPJS_employer.JHT)}</td>
+                        </tr>
+                        <tr className='contribution-table'>
+                          <td>BPJS JP (2%)</td>
+                          <td className='text-right'>{formatMoney(payroll.BPJS_employer.JP)}</td>
+                        </tr>
+                        <tr className='contribution-table'>
+                          <td>BPJS Kesehatan (4%)</td>
+                          <td className='text-right'>{formatMoney(payroll.BPJS_employer.KS)}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </div>
+
+                {/*Deductions*/}
+                <section className='slip-section'>
+
+                  <h4 className='deduct-title'>
+                    POTONGAN
+                  </h4>
+
+                  <table className='slip-table'>
+                    <tbody>
+
+                      {/*BPJS*/}
+                      <tr className='deduct-sub'>
+                        <td colSpan={2} className='p-1'>Potongan Asuransi</td>
+                      </tr>
+
+                      <tr className='deduct-table'>
+                        <td>BPJS JHT (2%)</td>
+                        <td className='text-right'>{formatMoney(payroll.BPJS.JHT)}</td>
+                      </tr>
+
+                      <tr className='deduct-table'>
+                        <td>BPJS JP (1%)</td>
+                        <td className='text-right'>{formatMoney(payroll.BPJS.JP)}</td>
+                      </tr>
+
+                      <tr className='deduct-table'>
+                        <td>BPJS Kesehatan (1%)</td>
+                        <td className='text-right'>{formatMoney(payroll.BPJS.KS)}</td>
+                      </tr>
+
+                      {payroll.level.deductables?.length > 0 && (
+                        <>
+                          <tr className='deduct-sub'>
+                            <td colSpan={2} className='p-1'>Potongan Divisi</td>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <table className="table table-hover">
-                      <thead>
-                        <tr>
-                          <th colSpan="2" className="text-center">
-                            Amount Paid
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                            <strong>Gross Earnings</strong>
-                          </td>
-                          <td>
-                            <strong>
-                              <span>Rp</span>{' '}
-                              {formatMoney(payroll.grossEarning)}
-                            </strong>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <strong>Total Deductions</strong>
-                          </td>
-                          <td>
-                            <strong className="text-danger">
-                              <span>Rp</span>{' '}
-                              {formatMoney(payroll.totalDeductable)}
-                            </strong>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <strong>Net Pay</strong>
-                          </td>
-                          <td>
-                            <strong>
-                              <span>Rp</span>{' '}
-                              {formatMoney(payroll.netPay)}
-                            </strong>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                  <td>
-                    <table className="table table-hover">
-                      <tbody>
-                        <tr />
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                          {payroll.level.deductables.map(
+                            (deductable) => (
+                              <tr key={deductable._id} className='deduct-table'>
+                                <td>{deductable.name}</td>
+                                <td style={{ textAlign: 'right' }}>{formatMoney(deductable.amount)}</td>
+                              </tr>
+                            ))}
+                        </>
+                      )}
+
+                      {extraIndividualDeduction?.length > 0 && (
+                        <>
+                          <tr className='deduct-sub'>
+                            <td colSpan={2} className='p-1'>Potongan Personal</td>
+                          </tr>
+                          {extraIndividualDeduction.map(
+                            (individualDeduction) => (
+                              <tr key={individualDeduction._id} className='deduct-table'>
+                                <td>{individualDeduction.name}</td>
+                                <td className='text-right'>{formatMoney(individualDeduction.amount)}</td>
+                              </tr>
+                            ))}
+                        </>
+                      )}
+
+                      {extraDeduction?.length > 0 && (
+                        <>
+                          <tr className='deduct-sub'>
+                            <td colSpan={2} className='p-1'>Potongan Sekali</td>
+                          </tr>
+                          {extraDeduction.map((item) => (
+                            <tr key={item._id} className='deduct-table'>
+                              <td>{item.name}</td>
+                              <td className='text-right'>{formatMoney(item.amount)}</td>
+                            </tr>
+                          ))}
+                        </>
+                      )}
+
+                      <tr className='deduct-sub'>
+                        <td colSpan={2} className='p-1'>Pajak</td>
+                      </tr>
+
+                      <tr className='deduct-table'>
+                        <td>PPh</td>
+                        <td className='text-right'>{formatMoney(payroll.tax)}</td>
+                      </tr>
+
+                      <tr className='deduct-table'>
+                        <td>Biaya Jabatan</td>
+                        <td className='text-right'>{formatMoney(payroll.biayaJabatan)}</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </section>
+              </div>
+
+              {/* TOTALS */}
+              <div className='totals-salary'>
+                <div className='total-income'>
+                  Total Pendapatan: {formatMoney(payroll.grossEarning)}
+                </div>
+                <div className='total-deductions'>
+                  Total Potongan: {formatMoney(payroll.totalDeductable)}
+                </div>
+              </div>
+
+              {/* NET PAY */}
+              <div className='net-pay'>
+                Take Home Pay: {formatMoney(payroll.netPay)}
+              </div>
+
+              {/* BANK INFO */}
+              <div className='bank-info'>
+                Pembayaran telah dilakukan ke rekening {formatField(payroll.employeeDetails.bankName)} {formatField(payroll.employeeDetails.accountNumber)}
+              </div>
+
+              {/* SIGNATURE */}
+              <div className='signature-section'>
+                <div className='signature-block'>
+                  <div className='signature-label'>Diterima Oleh</div>
+                  <div className='signature-line'>(________________________)</div>
+                  <div>{payroll.employeeDetails.name}</div>
+                </div>
+                <div className='signature-block'>
+                  <div className='signature-label'>Disetujui Oleh</div>
+                  <div className='signature-line'>(________________________)</div>
+                  <div>HRD</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

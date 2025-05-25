@@ -25,7 +25,7 @@ class MonthlySalary extends Component {
     let loadingBtn = document.querySelector('.loading');
     let loadingComp = document.createElement("i")
     loadingComp.classList = "fas fa-circle-notch fa-spin"
-    loadingBtn.innerHTML = "Generating "
+    loadingBtn.innerHTML = "Memproses "
     loadingBtn.appendChild(loadingComp)
 
     employees.forEach(employee => {
@@ -37,12 +37,12 @@ class MonthlySalary extends Component {
             failedGeneration++;
           }
           if(completeGeneration === totalEmployees){
-            toast.success('All payslip generated successfully!')
-            loadingBtn.innerHTML = "Generate All Payslips"
+            toast.success('Semua Slip Berhasil Dibuat!')
+            loadingBtn.innerHTML = "Buat Slip"
           }
           if(failedGeneration !== 0){
-            toast.warn(`Could not generate ${failedGeneration} payroll of ${totalEmployees}`)
-            loadingBtn.innerHTML = "Generate All Payslips"
+            toast.warn(`Gagal Membuat ${failedGeneration} Slip Untuk ${totalEmployees} Pegawai`)
+            loadingBtn.innerHTML = "Buat Slip"
           }
         })
         .catch(err => console.log(err))
@@ -65,11 +65,11 @@ class MonthlySalary extends Component {
         employeeTable = <MonthlySalaryTable employees={employees} />;
 
         if(salaryDay >= 5){
-          generateBtn = <Button classnameItems="btn-lg btn-info mb-4" btnName="Generate All Payslips" onClick={this.generateAll.bind(this, employees)} />
+          generateBtn = <Button classnameItems="btn-lg btn-info mb-4" btnName="Buat Slip" onClick={this.generateAll.bind(this, employees)} />
         }
         
       } else {
-        employeeTable = <h4>No previous employee entries!</h4>;
+        employeeTable = <h4>Data Pegawai Tidak Ditemukan!</h4>;
         generateBtn = '';
       }
     }
@@ -83,7 +83,7 @@ class MonthlySalary extends Component {
           <div className="main-content">
             <section className="section">
               <div className="section-header">
-                <h1>Employee monthly salary</h1>
+                <h1>Slip Pegawai</h1>
               </div>
               {generateBtn}
               {employeeTable}

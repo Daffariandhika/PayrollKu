@@ -202,6 +202,8 @@ router.get('/:id', protect, async (req, res) => {
       totalDeductable: totalDeductable,
       netPay,
       totalBpjs,
+      presentMonth,
+      presentYear,
       BPJS: {
         JHT,
         JP,
